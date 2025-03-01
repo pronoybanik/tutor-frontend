@@ -1,7 +1,16 @@
+import HeroSection from "@/components/modules/home/heroSection";
+import Offers from "@/components/modules/home/offers";
+import CoursesSection from "@/components/modules/home/ourcourse";
 import React from "react";
 
-const Home = () => {
-  return <div>home page 1</div>;
+const HomePage = () => {
+  return (
+    <div>
+      <HeroSection />
+      <Offers />
+      <CoursesSection />
+    </div>
+  );
 };
 
-export default Home;
+export default HomePage;
