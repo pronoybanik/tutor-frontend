@@ -7,13 +7,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import registerImage from "../../../../assets/register-image/Sign up-amico.png"
+import registerImage from "../../../../assets/register-image/Sign up-amico.png";
+import { toast } from "sonner";
+import { registerUser } from "@/services/AuthService";
+import { useUser } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   const { register, handleSubmit } = useForm();
+  const { setIsLoading } = useUser();
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("Registration Data:", data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const res = await registerUser(data);
+      setIsLoading(true);
+      if (res?.success) {
+        toast.success(res?.message);
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   return (

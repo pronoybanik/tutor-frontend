@@ -29,13 +29,13 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/user/dashboard",
+      url: "/dashboard",
       icon: SquareTerminal,
       isActive: true,
     },
     {
-      title: "Shop",
-      url: "/user/shop/products",
+      title: "Student section",
+      url: "",
       icon: Bot,
       items: [
         {
