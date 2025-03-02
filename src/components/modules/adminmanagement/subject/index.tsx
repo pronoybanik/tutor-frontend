@@ -1,13 +1,70 @@
-
-"use client"
+"use client";
 
 import PrimaryButton from "@/components/shared/PrimaryButton";
-import { Plus } from "lucide-react";
+import { NMTable } from "@/components/ui/core/NMTable";
+import { ISubject } from "@/types";
+import { Plus, Trash } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const SubjectManage = () => {
+const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
   const router = useRouter();
+
+  console.log(subjectData);
+  
+
+  const handleDelete = (subject: ISubject) => {
+    console.log("Deleting subject:", subject);
+    // Add logic for deleting the subject
+  };
+
+  const columns = [
+    {
+      accessorKey: "name",
+      header: "Product Name",
+      cell: ({ row }: { row: { original: ISubject } }) => (
+        <div className="flex items-center space-x-3">
+          <Image
+            src={row.original.image || "/placeholder-image.png"} // Fallback image
+            alt={row.original.name}
+            width={40}
+            height={40}
+            className="w-8 h-8 rounded-full"
+          />
+          <span className="truncate">{row.original.name}</span>
+        </div>
+      ),
+    },
+    {
+      accessorKey: "price",
+      header: "Price",
+      cell: ({ row }: { row: { original: ISubject } }) => (
+        <span>${row.original.price.toFixed(2)}</span>
+      ),
+    },
+    {
+      accessorKey: "gradeLevel",
+      header: "Grade Level",
+      cell: ({ row }: { row: { original: ISubject } }) => (
+        <span>{row.original.gradeLevel}</span>
+      ),
+    },
+    {
+      accessorKey: "action",
+      header: "Action",
+      cell: ({ row }: { row: { original: ISubject } }) => (
+        <button
+          className="text-red-500"
+          title="Delete"
+          onClick={() => handleDelete(row.original)}
+        >
+          <Trash className="w-5 h-5" />
+        </button>
+      ),
+    },
+  ];
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -25,8 +82,8 @@ const SubjectManage = () => {
           /> */}
         </div>
       </div>
-      {/* <NMTable columns={columns} data={products || []} />
-      <TablePagination totalPage={meta?.totalPage} /> */}
+      <NMTable columns={columns} data={subjectData || []} />
+      {/* <TablePagination totalPage={meta?.totalPage} /> */}
     </div>
   );
 };

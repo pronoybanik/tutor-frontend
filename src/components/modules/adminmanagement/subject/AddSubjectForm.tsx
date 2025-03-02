@@ -11,15 +11,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ICategory } from "@/types";
 import { getAllCategory } from "@/services/Category";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createSubject } from "@/services/Subject";
 
 const AddSubjectForm = () => {
   const form = useForm({
@@ -64,14 +70,13 @@ const AddSubjectForm = () => {
     }
 
     try {
-      console.log(modifiedData);
-      // const res = await addSubject(formData);
-      // if (res.success) {
-      //   toast.success(res.message);
-      //   router.push("/dashboard/subjects");
-      // } else {
-      //   toast.error(res.message);
-      // }
+      const res = await createSubject(formData);
+      if (res.success) {
+        toast.success(res.message);
+        router.push("/dashboard/subjects");
+      } else {
+        toast.error(res.message);
+      }
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong!");
@@ -92,7 +97,11 @@ const AddSubjectForm = () => {
                 <FormItem>
                   <FormLabel>Subject Name</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} placeholder="Enter subject name" />
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="Enter subject name"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +115,11 @@ const AddSubjectForm = () => {
                 <FormItem>
                   <FormLabel>Price ($)</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} placeholder="Enter price" />
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="Enter price"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +136,11 @@ const AddSubjectForm = () => {
                 <FormItem>
                   <FormLabel>Grade Level</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} placeholder="e.g., Grade 10, High School" />
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="e.g., Grade 10, High School"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,7 +156,10 @@ const AddSubjectForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select Subject Category" />
@@ -163,7 +183,11 @@ const AddSubjectForm = () => {
           <div className="mt-4">
             <p className="text-lg font-semibold">Upload Image</p>
             <div className="flex gap-4  mt-2">
-              <NMImageUploader setImageFiles={setImageFiles} setImagePreview={setImagePreview} label="Upload" />
+              <NMImageUploader
+                setImageFiles={setImageFiles}
+                setImagePreview={setImagePreview}
+                label="Upload"
+              />
               <ImagePreviewer
                 setImageFiles={setImageFiles}
                 imagePreview={imagePreview}
