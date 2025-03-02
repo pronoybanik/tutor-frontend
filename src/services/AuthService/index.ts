@@ -47,13 +47,17 @@ export const loginUser = async (userData: FieldValues) => {
 
 
 export const getCurrentUser = async () => {
-    const accessToken = (await cookies()).get("accessToken")?.value
-    let decodeData = null;
-  
-    if (accessToken) {
-      decodeData = await jwtDecode(accessToken);
-      return decodeData;
-    } else {
-      return null;
-    }
-  };
+  const accessToken = (await cookies()).get("accessToken")?.value
+  let decodeData = null;
+
+  if (accessToken) {
+    decodeData = await jwtDecode(accessToken);
+    return decodeData;
+  } else {
+    return null;
+  }
+};
+
+export const logout = async () => {
+  (await cookies()).delete("accessToken");
+}

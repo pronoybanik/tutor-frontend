@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { registerUser } from "@/services/AuthService";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   const { register, handleSubmit } = useForm();
@@ -98,9 +99,9 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
+                <Link href="/login" className="underline underline-offset-4">
+                  Sign in
+                </Link>
               </div>
             </div>
           </form>

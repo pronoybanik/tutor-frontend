@@ -15,18 +15,23 @@ import { Label } from "@/components/ui/label";
 import { useUser } from "@/context/UserContext";
 import { loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import PrimaryButton from "@/components/shared/PrimaryButton";
+import Link from "next/link";
 
 const LoginForm = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
   const { setIsLoading } = useUser();
 
-
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirectPath");
+  // const searchParams = useSearchParams();
+  // const redirect = searchParams.get("redirectPath");
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -35,11 +40,11 @@ const LoginForm = ({
       setIsLoading(true);
       if (res?.success) {
         toast.success(res?.message);
-        if (redirect) {
-          router.push(redirect);
-        } else {
-          router.push("/");
-        }
+        router.push("/");
+        // if (redirect) {
+        //   router.push(redirect);
+        // } else {
+        // }
       } else {
         toast.error(res?.message);
       }
@@ -109,16 +114,16 @@ const LoginForm = ({
               </div>
 
               {/* Submit Button */}
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
+              <PrimaryButton type="submit" className="w-full">
+                {isSubmitting ? "Logging...." : "Login"}
+              </PrimaryButton>
 
               {/* Sign Up Link */}
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
+                <Link href="/register" className="underline underline-offset-4">
                   Sign up
-                </a>
+                </Link>
               </div>
             </div>
           </form>
