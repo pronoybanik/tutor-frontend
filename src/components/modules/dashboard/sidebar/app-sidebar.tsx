@@ -2,13 +2,14 @@
 
 import * as React from "react";
 import {
-  Bot,
   Frame,
   LifeBuoy,
   Map,
   PieChart,
+  School,
   Send,
-  Settings,
+  Shield,
+  ShieldUser,
   SquareTerminal,
 } from "lucide-react";
 
@@ -33,34 +34,53 @@ const data = {
       icon: SquareTerminal,
       isActive: true,
     },
+
     {
-      title: "Student section",
+      title: "student section",
       url: "",
-      icon: Bot,
+      icon: ShieldUser,
       items: [
         {
-          title: "Manage Products",
-          url: "/user/shop/products",
-        },
-        {
-          title: "Manage Categories",
-          url: "/user/shop/category",
-        },
-        {
-          title: "Manage Brands",
-          url: "/user/shop/brand",
+          title: "book sessions",
+          url: "/dashboard/student/booksessions",
         },
       ],
     },
-
     {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
+      title: "Admin section",
+      url: "",
+      icon: Shield,
       items: [
         {
-          title: "Profile",
-          url: "/profile",
+          title: "Manage student",
+          url: "/dashboard/admin/studentlist",
+        },
+        {
+          title: "Manage Tutor",
+          url: "/dashboard/admin/tutorlist",
+        },
+        {
+          title: "Manage Category",
+          url: "/dashboard/admin/managecategory",
+        },
+        {
+          title: "Manage Subject",
+          url: "/dashboard/admin/managesubject",
+        },
+      ],
+    },
+    {
+      title: "Tutor section",
+      url: "",
+      icon: School,
+      items: [
+        {
+          title: "Manage Booking",
+          url: "/dashboard/tutor/booking",
+        },
+        {
+          title: "create subject",
+          url: "/dashboard/tutor/createsubject",
         },
       ],
     },
