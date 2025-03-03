@@ -29,6 +29,9 @@ export const getAllCategory = async () => {
             next: {
                 tags: ["Category"],
             },
+            headers: {
+                Authorization: (await cookies()).get("accessToken")!.value
+            },
         });
         const data = await res.json();
         return data;

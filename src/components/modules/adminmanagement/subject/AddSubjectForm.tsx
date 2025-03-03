@@ -166,7 +166,7 @@ const AddSubjectForm = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
+                      {categories?.map((category) => (
                         <SelectItem key={category?._id} value={category?._id}>
                           {category?.name}
                         </SelectItem>
