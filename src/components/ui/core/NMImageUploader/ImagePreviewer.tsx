@@ -31,7 +31,7 @@ const ImagePreviewer = ({
           <Image
             width={500}
             height={500}
-            src={preview}
+            src={preview || "/placeholder-image.png"}
             alt={`Preview ${index + 1}`}
             className="object-cover w-full h-full"
           />

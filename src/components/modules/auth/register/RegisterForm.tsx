@@ -107,7 +107,7 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
           </form>
           <div className="relative hidden bg-muted md:block">
             <Image
-              src={registerImage}
+              src={registerImage || "/placeholder-image.png"}
               alt="Image"
               layout="fill"
               objectFit="contain"

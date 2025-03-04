@@ -12,16 +12,16 @@ const TutorSection = ({ data }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {data.map((tutor) => (
+        {data?.map((tutor) => (
           <div
-            key={tutor.id}
+            key={tutor._id}
             className="bg-white border rounded-lg shadow-md p-6 text-center"
           >
             <Image
               width={500}
               height={500}
-              src={tutor.image}
-              alt={tutor.title}
+              src={tutor.image || "/placeholder-image.png"}
+              alt="tutor Image"
               className="rounded-lg w-full h-48 object-cover mb-4"
             />
             <h3 className="text-xl font-semibold mb-2">{tutor.title}</h3>

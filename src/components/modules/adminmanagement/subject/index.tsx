@@ -23,7 +23,7 @@ const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
       cell: ({ row }: { row: { original: ISubject } }) => (
         <div className="flex items-center space-x-3">
           <Image
-            src={row.original.image || "/placeholder-image.png"} // Fallback image
+            src={row.original.image || "/placeholder-image.png"} 
             alt={row.original.name}
             width={40}
             height={40}

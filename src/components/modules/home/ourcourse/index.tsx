@@ -23,7 +23,7 @@ const CoursesSection = ({ data }: { data: ISubject[] }) => { // Corrected data t
           >
             <div className="relative w-full h-48 mb-4"> {/* Added relative div for image */}
               <Image
-                src={course.image}
+                src={course.image || "/placeholder-image.png"}
                 alt=""
                 layout="fill"
                 objectFit="cover"
@@ -31,7 +31,7 @@ const CoursesSection = ({ data }: { data: ISubject[] }) => { // Corrected data t
               />
             </div>
             <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
-            <p className="text-gray-600 mb-4">{course.description}</p>
+            {/* <p className="text-gray-600 mb-4">{course.description}</p> */}
             <a
               href="#"
               className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-700"

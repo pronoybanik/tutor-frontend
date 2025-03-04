@@ -5,7 +5,7 @@ import image from "../../assets/sitelogo/Screenshot_2025-03-01_232319-removebg-p
 const Logo = () => {
     return (
         <div>
-            <Image src={image} width={180} height={100} alt="Site Logo" />
+            <Image src={image || "/placeholder-image.png"} width={180} height={100} alt="Site Logo" />
         </div>
     );
 };

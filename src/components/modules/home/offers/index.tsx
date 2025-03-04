@@ -44,7 +44,7 @@ const Offers = () => {
           <div key={index} className="flex flex-col items-center text-center">
             <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
               <Image
-                src={item.image}
+                src={item.image || "/placeholder-image.png"}
                 alt={item.title}
                 layout="fill"
                 objectFit="cover"

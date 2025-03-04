@@ -58,7 +58,7 @@ const TutorProfile = () => {
               <Image
                 width={100}
                 height={100}
-                src={profile?.image}
+                src={profile?.image || "/placeholder-image.png"}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
