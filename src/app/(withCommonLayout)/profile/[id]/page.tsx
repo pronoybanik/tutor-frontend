@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { updateProfile } from "@/services/Profile";
+import { getProfileInfoById, updateProfile } from "@/services/Profile";
+import { IProfile } from "@/types";
 
 const ProfileDetails = () => {
   const { id } = useParams();
@@ -26,20 +27,17 @@ const ProfileDetails = () => {
     },
   });
 
+  const routes = useRouter();
+
   // Fetch profile data based on ID
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API}/profile/${id}`
-        );
+        const data = await getProfileInfoById(id as string);
 
-        if (!res.ok) {
-          throw new Error(`Error fetching profile: ${res.statusText}`);
+        if (data.success) {
+          setProfile(data.data);
         }
-
-        const data = await res.json();
-        setProfile(data.data);
 
         // Set form values
         setValue("subjects", data.data.subjects?.join(", ") || "");
@@ -65,12 +63,13 @@ const ProfileDetails = () => {
     };
 
     try {
-      const res = await updateProfile(id as string, formattedData);
+      const res = await updateProfile(id as string, formattedData as IProfile);
       console.log("updateProfile Response:", res);
 
       if (res.success) {
         alert("Profile updated successfully!");
         setProfile(res.data);
+        routes.push(`/profile`);
       } else {
         alert("Failed to update profile: " + res.error);
       }
