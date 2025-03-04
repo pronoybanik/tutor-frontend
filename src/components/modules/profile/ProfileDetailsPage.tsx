@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-
-import {  UserCircleIcon } from "lucide-react";
+import { UserCircleIcon } from "lucide-react";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 import { getProfileInfo } from "@/services/Profile";
@@ -17,7 +16,6 @@ const TutorProfile = () => {
 
   const [profile, setProfile] = useState(null);
   const [userData, setUserData] = useState(null);
-  console.log(profile);
   const routes = useRouter();
 
   useEffect(() => {
@@ -28,14 +26,13 @@ const TutorProfile = () => {
           console.error("Failed to fetch profile:", profileData.error);
           return;
         }
-  
+
         setProfile(profileData.data);
-  
+
         if (user?.userId) {
           const userData = await getUserInfoById(user.userId);
-          console.log("userData", userData);
-          setUserData(userData.data)
-  
+          setUserData(userData.data);
+
           if (!userData) {
             console.error("Failed to fetch user info or no data found");
           } else {
@@ -48,10 +45,9 @@ const TutorProfile = () => {
         console.error("An error occurred while fetching data:", error);
       }
     };
-  
+
     fetchProfile();
   }, [user]);
-  
 
   const handleEdit = (id: string) => {
     routes.push(`/profile/${id}`);

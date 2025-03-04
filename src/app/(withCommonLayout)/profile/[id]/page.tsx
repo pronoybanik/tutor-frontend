@@ -64,7 +64,6 @@ const ProfileDetails = () => {
 
     try {
       const res = await updateProfile(id as string, formattedData as IProfile);
-      console.log("updateProfile Response:", res);
 
       if (res.success) {
         alert("Profile updated successfully!");

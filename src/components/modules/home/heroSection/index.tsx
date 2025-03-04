@@ -36,15 +36,15 @@ const HeroSection = () => {
       {/* Stats Section */}
       <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-12 text-white bg-black py-8 px-4">
         <div className="text-center">
-          <span className="text-green-400 text-3xl font-bold">10</span>
+          <span className="text-[#1dd1a1] text-3xl font-bold">10</span>
           <p className="mt-2">Years of Excellence</p>
         </div>
         <div className="text-center">
-          <span className="text-green-400 text-3xl font-bold">96%</span>
+          <span className="text-[#1dd1a1] text-3xl font-bold">96%</span>
           <p className="mt-2">Recommended by Students</p>
         </div>
         <div className="text-center">
-          <span className="text-green-400 text-3xl font-bold">40K</span>
+          <span className="text-[#1dd1a1] text-3xl font-bold">40K</span>
           <p className="mt-2">Students from 100 Countries</p>
         </div>
       </div>

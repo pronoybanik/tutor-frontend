@@ -9,10 +9,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
-  const router = useRouter();
-
-  console.log(subjectData);
-  
+  const router = useRouter();  
 
   const handleDelete = (subject: ISubject) => {
     console.log("Deleting subject:", subject);
