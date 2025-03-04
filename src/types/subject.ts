@@ -3,7 +3,7 @@ export interface ISubject {
     userId: string;
     name: string;
     desriptions: string;
-    price: number;
+    hourly: number;
     image: string;
     gradeLevel: string;
     category: string;

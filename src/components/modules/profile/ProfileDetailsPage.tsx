@@ -32,12 +32,6 @@ const TutorProfile = () => {
         if (user?.userId) {
           const userData = await getUserInfoById(user.userId);
           setUserData(userData.data);
-
-          if (!userData) {
-            console.error("Failed to fetch user info or no data found");
-          } else {
-            // Handle userData if needed
-          }
         } else {
           console.error("User ID is not available");
         }
@@ -57,7 +51,7 @@ const TutorProfile = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
       <div className="w-full max-w-3xl bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6">
         {/* Profile Header */}
-        <div className="flex flex-col md:flex-row items-center gap-6">
+        <div className="flex flex-col md:flex-row items-center gap-6 pb-4">
           {/* Profile Image */}
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-500">
             {profile?.image ? (
@@ -74,7 +68,7 @@ const TutorProfile = () => {
           </div>
 
           {/* Profile Info */}
-          <div className="flex-1 text-center md:text-left">
+          <div className="flex-1 text-center md:text-left ">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               {userData?.name}
             </h2>
@@ -85,9 +79,58 @@ const TutorProfile = () => {
           </div>
         </div>
 
+        {profile?.role === "tutor" ? (
+          profile?.isVerified ? (
+            <div
+              role="alert"
+              className="rounded-sm border-l-4 border-green-500 bg-green-100 p-4"
+            >
+              <strong className="block font-medium text-green-800">
+                You Are a Verified Teacher
+              </strong>
+            </div>
+          ) : (
+            <div
+              role="alert"
+              className="rounded-sm border-l-4 border-yellow-500 bg-yellow-100 p-4"
+            >
+              <strong className="block font-medium text-yellow-800">
+                You Are Not Verified as a Teacher Yet
+              </strong>
+            </div>
+          )
+        ) : (
+          <div
+            role="alert"
+            className="rounded-sm border-l-4 border-blue-500 bg-blue-100 p-4"
+          >
+            <strong className="block font-medium text-blue-800">
+              You Are a Verified Student
+            </strong>
+          </div>
+        )}
+
+        <br />
+        {profile?.requestRole === "tutor" ? (
+          <div
+            role="alert"
+            className="rounded-sm border-s-4 border-red-500 bg-red-50 p-4"
+          >
+            <strong className="block font-medium text-red-800">
+              Your Request Sent Please wait our mail
+            </strong>
+
+            <p className="mt-2 text-sm text-red-700">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo
+              quasi assumenda numquam deserunt consectetur autem nihil quos
+              debitis dolor culpa.
+            </p>
+          </div>
+        ) : null}
+
         {/* Profile Details */}
         {userData?.role === "tutor" ? (
-          <div className="mt-6 border-t border-gray-300 dark:border-gray-600 pt-6">
+          <div className="mt-6 border-t border-gray-300 dark:border-gray-600 pt-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Experience
             </h3>
@@ -110,14 +153,10 @@ const TutorProfile = () => {
             </p>
           </div>
         ) : (
-          <h1 className="text-center text-lg font-semibold text-gray-900 dark:text-white">
-            You want to apply as a tutor
+          <h1 className="text-center text-lg font-semibold  uppercase text-red-300  dark:text-white">
+            You want to apply as a tutor Go Edit Button
           </h1>
         )}
-
-        {profile?.isVerified ? "tutor access" : "student acess"}
-        <br />
-        {profile?.requestRole === "tutor" ? "reqquest sent" : null}
 
         {/* Edit Button */}
         <div className="mt-6 text-center">

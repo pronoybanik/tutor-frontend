@@ -37,7 +37,7 @@ const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
       accessorKey: "price",
       header: "Price",
       cell: ({ row }: { row: { original: ISubject } }) => (
-        <span>${row.original.price.toFixed(2)}</span>
+        <span>${row.original.hourly?.toFixed(2)}</span>
       ),
     },
     {

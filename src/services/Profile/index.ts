@@ -1,6 +1,5 @@
 "use server";
 
-import { IProfile } from "@/types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -60,7 +59,7 @@ export const getProfileInfoById = async (id: string) => {
   }
 };
 
-export const updateProfile = async (id: string, data: IProfile) => {
+export const updateProfile = async (id: string, data: any) => {
 
   try {
     const res = await fetch(
