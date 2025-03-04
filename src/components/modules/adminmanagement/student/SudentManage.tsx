@@ -94,20 +94,20 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
       header: "Bio",
       cell: ({ row }) => <span>{row.original.bio}</span>,
     },
-    {
-      accessorKey: "createdAt",
-      header: "Created At",
-      cell: ({ row }) => (
-        <span>{new Date(row.original.createdAt).toLocaleString()}</span>
-      ),
-    },
-    {
-      accessorKey: "updatedAt",
-      header: "Updated At",
-      cell: ({ row }) => (
-        <span>{new Date(row.original.updatedAt).toLocaleString()}</span>
-      ),
-    },
+    // {
+    //   accessorKey: "createdAt",
+    //   header: "Created At",
+    //   cell: ({ row }) => (
+    //     <span>{new Date(row.original.createdAt).toLocaleString()}</span>
+    //   ),
+    // },
+    // {
+    //   accessorKey: "updatedAt",
+    //   header: "Updated At",
+    //   cell: ({ row }) => (
+    //     <span>{new Date(row.original.updatedAt).toLocaleString()}</span>
+    //   ),
+    // },
   ];
 
   return (

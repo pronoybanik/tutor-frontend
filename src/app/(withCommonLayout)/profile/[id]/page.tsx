@@ -14,7 +14,7 @@ const ProfileDetails = () => {
   const [profile, setProfile] = useState<IProfile | null>(null);
   const [applyForTutor, setApplyForTutor] = useState(false);
 
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       image: "",
       subjects: "",
@@ -48,7 +48,7 @@ const ProfileDetails = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
-    let formattedData: Partial<IProfile> = {};
+    const formattedData: Partial<IProfile> = {};
 
     const imageFile = formData.image[0]; // Extract file from FileList
     if (imageFile) {

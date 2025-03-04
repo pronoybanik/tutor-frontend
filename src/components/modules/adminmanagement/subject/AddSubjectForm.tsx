@@ -36,7 +36,7 @@ const AddSubjectForm = () => {
       gradeLevel: "",
       category: "",
       image: null,
-      dateTimes: [], // Stores multiple date-time slots
+      dateTimes: [] as string[],
     },
   });
 
@@ -45,22 +45,25 @@ const AddSubjectForm = () => {
   } = form;
 
   const router = useRouter();
-  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-  const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-  const [categories, setCategories] = useState<ICategory[] | []>([]);
-  const [dateTimes, setDateTimes] = useState([
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreview, setImagePreview] = useState<string[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [dateTimes, setDateTimes] = useState<{ id: number; value: string }[]>([
     { id: Date.now(), value: new Date().toISOString() },
-  ]); // Default to current date
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const categoriesData = await getAllCategory();
-      setCategories(categoriesData.data);
+      try {
+        const categoriesData = await getAllCategory();
+        setCategories(categoriesData.data);
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+      }
     };
     fetchData();
   }, []);
 
-  // Handle adding new date-time field
   const addDateTimeField = () => {
     setDateTimes([
       ...dateTimes,
@@ -68,18 +71,14 @@ const AddSubjectForm = () => {
     ]);
   };
 
-  // Handle removing a date-time field
   const removeDateTimeField = (id: number) => {
     setDateTimes(dateTimes.filter((dt) => dt.id !== id));
   };
 
-  // Handle updating date-time field value
   const updateDateTime = (id: number, value: string) => {
-    console.log(`Updating DateTime for ID ${id}:`, value); // Debug log
     setDateTimes(dateTimes.map((dt) => (dt.id === id ? { ...dt, value } : dt)));
   };
 
-  // Submit handler
   const onSubmit: SubmitHandler<any> = async (data) => {
     const modifiedData = {
       ...data,
@@ -87,10 +86,10 @@ const AddSubjectForm = () => {
       image: imageFiles.length > 0 ? imageFiles[0] : null,
       dateTimes: dateTimes
         .map((dt) => dt.value)
-        .filter((value) => value && value.trim() !== ""), // Remove empty values
+        .filter((value) => value && value.trim() !== ""),
     };
 
-    console.log("Final Form Data before submitting:", modifiedData); // Debug log
+    console.log("Final Form Data before submitting:", modifiedData);
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(modifiedData));
@@ -98,20 +97,18 @@ const AddSubjectForm = () => {
       formData.append("image", imageFiles[0]);
     }
 
-    // try {
-    //   const res = await createSubject(formData);
-    //   console.log(res);
-
-    //   if (res.success) {
-    //     toast.success(res.message);
-    //     router.push("/dashboard/subjects");
-    //   } else {
-    //     toast.error(res.message);
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    //   toast.error("Something went wrong!");
-    // }
+    try {
+      const res = await createSubject(formData);
+      if (res.success) {
+        toast.success(res.message);
+        router.push("/dashboard/subjects");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -159,10 +156,7 @@ const AddSubjectForm = () => {
                 <FormItem>
                   <FormLabel>Grade Level</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="e.g., Grade 10, High School"
-                    />
+                    <Input {...field} placeholder="e.g., Grade 10, High School" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -178,19 +172,16 @@ const AddSubjectForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select Subject Category" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories?.map((category) => (
-                        <SelectItem key={category?._id} value={category?._id}>
-                          {category?.name}
+                      {categories.map((category) => (
+                        <SelectItem key={category._id} value={category._id}>
+                          {category.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -205,10 +196,10 @@ const AddSubjectForm = () => {
           <div className="mt-6">
             <p className="text-lg font-semibold">Date & Time Slots</p>
             {dateTimes.map((dt, index) => (
-              <div key={dt.id} className=" gap-4 mt-2">
+              <div key={dt.id} className="flex gap-4 mt-2 items-center">
                 <DateTimePicker
                   value={dt.value}
-                  onChange={(value) => updateDateTime(dt.id, value)}
+                  onChange={(value: string) => updateDateTime(dt.id, value)}
                 />
                 {index > 0 && (
                   <Button
@@ -230,20 +221,20 @@ const AddSubjectForm = () => {
           <div className="mt-4">
             <p className="text-lg font-semibold">Upload Image</p>
             <div className="flex items-center justify-center">
-          {imagePreview?.length > 0 ? (
-            <ImagePreviewer
-              setImageFiles={setImageFiles}
-              imagePreview={imagePreview}
-              setImagePreview={setImagePreview}
-            />
-          ) : (
-            <NMImageUploader
-              setImageFiles={setImageFiles}
-              setImagePreview={setImagePreview}
-              label="Upload Logo"
-            />
-          )}
-        </div>
+              {imagePreview.length > 0 ? (
+                <ImagePreviewer
+                  setImageFiles={setImageFiles}
+                  imagePreview={imagePreview}
+                  setImagePreview={setImagePreview}
+                />
+              ) : (
+                <NMImageUploader
+                  setImageFiles={setImageFiles}
+                  setImagePreview={setImagePreview}
+                  label="Upload Logo"
+                />
+              )}
+            </div>
           </div>
 
           {/* Submit Button */}
