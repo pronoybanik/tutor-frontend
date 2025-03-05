@@ -99,7 +99,6 @@ const AddSubjectForm = () => {
 
     try {
       const res = await createSubject(formData);
-      console.log(res);
 
       if (res.success) {
         toast.success(res.message);

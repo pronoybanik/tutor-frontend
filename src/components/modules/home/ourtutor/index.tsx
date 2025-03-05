@@ -4,11 +4,11 @@ import Link from "next/link";
 const TutorSection = ({ data }) => {
   
   return (
-    <div className="bg-gray-50 py-12 px-6 md:px-12 lg:px-24 ">
+    <div className=" py-12 mt-16 px-6 md:px-12 lg:px-24 ">
      <div className="text-center mb-12 max-w-2xl mx-auto">
-        <h1 className="text-[#1e3799] uppercase font-semibold">Tutor</h1>
+        <h1 className="text-[#1e3799] uppercase font-semibold">--- Tutor ---</h1>
         <h2 className="text-4xl font-semibold my-4 font-mono uppercase">
-          our tutor
+          our tutor 
         </h2>
         <p className="text-sm text-gray-600 ">
           Our team of experienced and certified instructors is committed to

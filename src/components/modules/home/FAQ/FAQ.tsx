@@ -53,8 +53,8 @@ const FAQ = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl font-bold text-center mb-6">Frequently Asked Questions</h2>
+    <div className="max-w-6xl mx-auto p-6 mt-16">
+      <h2 className="text-3xl font-bold text-center mb-8 py-4">Frequently Asked Questions</h2>
 
       {faqData.map((section, sectionIndex) => (
         <div key={sectionIndex} className="mb-6">

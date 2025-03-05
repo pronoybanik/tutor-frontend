@@ -4,7 +4,6 @@ import React from "react";
 
 const SubjectListPage = async () => {
   const data = await getTutorCreatedSubject();
-  console.log(data);
 
   return (
     <div>

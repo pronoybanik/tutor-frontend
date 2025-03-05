@@ -87,6 +87,10 @@ const data = {
           title: "subject list",
           url: "/dashboard/tutor/subjectList",
         },
+        {
+          title: "create blog",
+          url: "/dashboard/tutor/createBlog",
+        },
       ],
     },
   ],

@@ -11,8 +11,6 @@ import { deleteSubject } from "@/services/Subject";
 import Image from "next/image";
 
 const StudentList = ({ data }: { data: ISubject[] }) => {
-  console.log(data);
-
   const [subjectData, setSubjectData] = useState<ISubject[]>(data);
 
   const handleDelete = async (id: string) => {

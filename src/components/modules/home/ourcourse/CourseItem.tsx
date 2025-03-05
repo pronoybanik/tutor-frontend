@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 const CourseItem = ({ data: course }: { data: ISubject }) => {
-  console.log(course);
 
   return (
     <Link

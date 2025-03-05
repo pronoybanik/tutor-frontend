@@ -8,7 +8,6 @@ const Footer = () => {
   <div className="container mx-auto px-5">
     {/* Newsletter Section */}
     <div className="bg-black p-8 rounded-lg text-center mb-10">
-      <h3 className="text-lg font-semibold">▶▶ GET STARTED</h3>
       <h2 className="text-3xl font-bold mt-2">Don not miss a thing - News & offers</h2>
       <p className="mt-2">Sign up for a trial lesson and experience our high-quality English courses firsthand.</p>
       <div className="flex justify-center mt-2">

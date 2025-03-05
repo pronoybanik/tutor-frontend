@@ -71,23 +71,20 @@ const NavBar = () => {
           >
             course
           </Link>
-          <Link
-            href="/services"
-            className="hover:text-[#1dd1a1] text-white font-bold transition duration-300"
-          >
-            Services
-          </Link>
-          <Link
-            href="/projects"
-            className="hover:text-[#1dd1a1] text-white font-bold transition duration-300"
-          >
-            Projects
-          </Link>
+         
+        
           <Link
             href="/blogs"
             className="hover:text-[#1dd1a1] text-white font-bold transition duration-300"
           >
             Blog
+          </Link>
+
+          <Link
+            href="/contact"
+            className="hover:text-[#1dd1a1] text-white font-bold transition duration-300"
+          >
+            contact
           </Link>
         </nav>
 
