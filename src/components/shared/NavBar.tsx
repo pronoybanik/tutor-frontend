@@ -22,6 +22,8 @@ import { getProfileInfo } from "@/services/Profile";
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, setIsLoading } = useUser();
+  console.log(user);
+  
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
   useEffect(() => {

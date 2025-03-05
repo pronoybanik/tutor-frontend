@@ -22,23 +22,16 @@ export const registerUser = async (userData: FieldValues) => {
 };
 
 export const getUserInfoById = async (id: string) => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/${id}`, {
-      next: {
-        tags: ["User"],
-      },
-    });
 
-    if (!res.ok) {
-      throw new Error(`Error fetching user data: ${res.statusText}`);
-    }
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/${id}`, {
+    next: {
+      tags: ["User"],
+    },
+  });
 
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch user data:", error.message);
-    return null; // Return null or handle it appropriately
-  }
+  const data = await res.json();
+  return data;
+
 };
 
 

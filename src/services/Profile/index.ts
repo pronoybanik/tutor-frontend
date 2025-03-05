@@ -14,10 +14,6 @@ export const getProfileInfo = async () => {
       },
     });
 
-    if (!res.ok) {
-      throw new Error(`Error fetching profile: ${res.statusText}`);
-    }
-
     const data = await res.json();
     return data;
   } catch (error) {
@@ -43,14 +39,8 @@ export const getProfileInfoById = async (id: string) => {
       next: {
         tags: ["Profile"],
       },
-      // headers: {
-      //   Authorization: (await cookies()).get("accessToken")?.value || "",
-      // },
     });
 
-    if (!res.ok) {
-      throw new Error(`Error fetching profile: ${res.statusText}`);
-    }
 
     const data = await res.json();
     return data;
@@ -74,9 +64,27 @@ export const updateProfile = async (id: string, data: any) => {
       }
     );
 
-    if (!res.ok) {
-      throw new Error(`Error updating profile: ${res.statusText}`);
-    }
+    revalidateTag("Profile");
+    return await res.json();
+  } catch (error) {
+    console.error("Error updating profile:", error);
+  }
+};
+
+
+export const updateProfileByRole = async (id: string, data: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/profile/${id}/role`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("accessToken")?.value || "",
+        },
+        body: JSON.stringify({ role: data }),
+      }
+    );
 
     revalidateTag("Profile");
     return await res.json();
