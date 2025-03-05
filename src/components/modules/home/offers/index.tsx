@@ -27,7 +27,7 @@ const OfferData = [
 
 const Offers = () => {
   return (
-    <div className="bg-white py-12 px-6 md:px-12 lg:px-24">
+    <div className="bg-white py-12 px-6 md:px-12 lg:px-24 mx-auto  max-w-7xl">
       <div className="text-center mb-12 max-w-2xl mx-auto">
         <h1 className="text-[#1e3799] uppercase font-semibold">offers</h1>
         <h2 className="text-4xl font-semibold my-4 font-mono uppercase">

@@ -15,7 +15,7 @@ const CoursesSection = ({ data }: { data: ISubject[] }) => { // Corrected data t
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto  max-w-7xl">
         {data.map((course) => (
           <div
             key={course._id}

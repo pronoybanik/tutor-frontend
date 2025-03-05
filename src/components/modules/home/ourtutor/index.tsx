@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const TutorSection = ({ data }) => {
   return (
-    <div className="bg-gray-50 py-12 px-6 md:px-12 lg:px-24">
+    <div className="bg-gray-50 py-12 px-6 md:px-12 lg:px-24 ">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-2">Our Teacher</h2>
         <p className="text-lg text-gray-600">
@@ -11,7 +11,7 @@ const TutorSection = ({ data }) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto  max-w-7xl">
         {data?.map((tutor) => (
           <div
             key={tutor._id}
