@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const TutorSection = ({ data }) => {
-  console.log(data);
   
   return (
     <div className="bg-gray-50 py-12 px-6 md:px-12 lg:px-24 ">
@@ -18,7 +18,7 @@ const TutorSection = ({ data }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto  max-w-7xl">
         {data?.map((tutor) => (
-          <div
+          <Link href={`/tutor/${tutor._id}`}
             key={tutor._id}
             className="bg-white border rounded-lg shadow-md p-6 text-center"
           >
@@ -37,7 +37,7 @@ const TutorSection = ({ data }) => {
             >
               LEARN MORE
             </a>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

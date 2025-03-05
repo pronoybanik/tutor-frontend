@@ -76,3 +76,17 @@ export const deleteSubject = async (id: string) => {
         return Error(error.message);
     }
 }
+
+export const getSingleSubject = async (id: string) => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/subject/${id}`, {
+            next: {
+                tags: ["Subject"],
+            },
+        });
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
+    }
+};
