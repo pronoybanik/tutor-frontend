@@ -22,7 +22,6 @@ import { getProfileInfo } from "@/services/Profile";
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, setIsLoading } = useUser();
-  console.log(user);
   
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
@@ -30,7 +29,6 @@ const NavBar = () => {
     const fetchProfile = async () => {
       try {
         const userProfile = await getProfileInfo();
-        console.log("userprofile", userProfile);
 
         if (userProfile?.success) {
           setProfileImage(userProfile.data?.image || null);

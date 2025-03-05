@@ -33,6 +33,18 @@ export const getAllUserProfileInfo = async () => {
   return data;
 };
 
+export const getAllTutorProfileInfo = async () => {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/profile/tutor`, {
+    next: {
+      tags: ["Profile"],
+    },
+  })
+
+  const data = await res.json();
+  return data;
+};
+
 export const getProfileInfoById = async (id: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/profile/${id}`, {

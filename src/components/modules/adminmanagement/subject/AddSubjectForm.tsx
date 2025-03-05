@@ -99,9 +99,11 @@ const AddSubjectForm = () => {
 
     try {
       const res = await createSubject(formData);
+      console.log(res);
+
       if (res.success) {
         toast.success(res.message);
-        router.push("/dashboard/subjects");
+        router.push("/dashboard/tutor/subjectList");
       } else {
         toast.error(res.message);
       }
@@ -137,9 +139,9 @@ const AddSubjectForm = () => {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price ($)</FormLabel>
+                  <FormLabel>Hourly Charge ($)</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter price" />
+                    <Input {...field} placeholder="Enter Hourly charge" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -156,7 +158,10 @@ const AddSubjectForm = () => {
                 <FormItem>
                   <FormLabel>Grade Level</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="e.g., Grade 10, High School" />
+                    <Input
+                      {...field}
+                      placeholder="e.g., Grade 10, High School"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -172,7 +177,10 @@ const AddSubjectForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select Subject Category" />
@@ -196,7 +204,7 @@ const AddSubjectForm = () => {
           <div className="mt-6">
             <p className="text-lg font-semibold">Date & Time Slots</p>
             {dateTimes.map((dt, index) => (
-              <div key={dt.id} className="flex gap-4 mt-2 items-center">
+              <div key={dt.id} className=" gap-4 mt-2 items-center">
                 <DateTimePicker
                   value={dt.value}
                   onChange={(value: string) => updateDateTime(dt.id, value)}

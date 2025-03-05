@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+import Logo from "./Logo";
 
 const Footer = () => {
   return <footer className="bg-gray-900 text-white py-10">
@@ -10,7 +11,10 @@ const Footer = () => {
       <h3 className="text-lg font-semibold">▶▶ GET STARTED</h3>
       <h2 className="text-3xl font-bold mt-2">Don not miss a thing - News & offers</h2>
       <p className="mt-2">Sign up for a trial lesson and experience our high-quality English courses firsthand.</p>
-      <button className="mt-4 bg-green-500 text-white py-2 px-6 rounded-full">SIGN UP</button>
+      <div className="flex justify-center mt-2">
+
+      <Logo/>
+      </div>
     </div>
 
     {/* Footer Links */}
@@ -54,9 +58,9 @@ const Footer = () => {
     {/* Contact Info */}
     <div className="flex flex-col md:flex-row md:justify-between items-center border-t border-gray-700 pt-5">
       <div className="text-center md:text-left mb-4 md:mb-0">
-        <h2 className="text-2xl font-bold">Inlingo</h2>
+        <h2 className="text-2xl font-bold">skooli</h2>
         <p className="text-gray-400 mt-2">Montes quisque urna molestie tincidunt aliquet quam.</p>
-        <p className="text-gray-400">info@inlingo.com | 021-3456-789</p>
+        <p className="text-gray-400">info@skoolicom | 021-3456-789</p>
       </div>
       <div className="flex space-x-4">
         <FaFacebookF className="text-xl cursor-pointer" />
@@ -68,7 +72,7 @@ const Footer = () => {
 
     {/* Bottom Links */}
     <div className="text-center text-gray-500 mt-6 text-sm">
-      © 2025 - Inlingo. Design by ThemeWarrior | <Link href="#">About</Link> | <Link href="#">Careers</Link> | <Link href="#">Support</Link> | <Link href="#">Privacy</Link> | <Link href="#">Contact</Link>
+      © 2025 - skooli Design by ThemeWarrior | <Link href="#">About</Link> | <Link href="#">Careers</Link> | <Link href="#">Support</Link> | <Link href="#">Privacy</Link> | <Link href="#">Contact</Link>
     </div>
   </div>
 </footer>;

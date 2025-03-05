@@ -41,7 +41,7 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
     },
     {
       accessorKey: "role",
-      header: "User Role",
+      header: "Profile Role",
       cell: ({ row }) => (
         <span className="bg-[#1dd1a1] flex justify-center text-xs text-black font-semibold p-2 rounded-xl">
           {row.original.role}

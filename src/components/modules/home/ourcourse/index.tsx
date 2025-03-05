@@ -1,7 +1,9 @@
 import { ISubject } from "@/types";
-import Image from "next/image";
+import CourseItem from "./CourseItem";
 
-const CoursesSection = ({ data }: { data: ISubject[] }) => { // Corrected data type to array
+const CoursesSection = ({ data }: { data: ISubject[] }) => {
+
+  // Corrected data type to array
   return (
     <div className="bg-gray-50 py-12 px-6 md:px-12 lg:px-24">
       <div className="text-center mb-12 max-w-2xl mx-auto">
@@ -16,29 +18,8 @@ const CoursesSection = ({ data }: { data: ISubject[] }) => { // Corrected data t
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto  max-w-7xl">
-        {data.map((course) => (
-          <div
-            key={course._id}
-            className="bg-white border rounded-lg shadow-md p-6 text-center"
-          >
-            <div className="relative w-full h-48 mb-4"> {/* Added relative div for image */}
-              <Image
-                src={course.image || "/placeholder-image.png"}
-                alt=""
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-              />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">{course.name}</h3>
-            {/* <p className="text-gray-600 mb-4">{course.description}</p> */}
-            <a
-              href="#"
-              className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-700"
-            >
-              LEARN MORE
-            </a>
-          </div>
+        {data?.map((course) => (
+          <CourseItem key={course._id} data={course} />
         ))}
       </div>
     </div>
