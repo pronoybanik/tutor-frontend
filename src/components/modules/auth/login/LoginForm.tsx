@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import PrimaryButton from "@/components/shared/PrimaryButton";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const LoginForm = ({
   className,
@@ -62,19 +63,36 @@ const LoginForm = ({
             Login with your Apple or Google account
           </CardDescription>
         </CardHeader>
+
+        {/* Social Logins */}
+        <div className="flex flex-col gap-4 px-10">
+          <Button
+            onClick={() =>
+              signIn("github", {
+                callbackUrl: "http://localhost:3000/dashboard",
+              })
+            }
+            variant="outline"
+            className="w-full"
+          >
+            Login with Github
+          </Button>
+          <Button
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: "http://localhost:3000/dashboard",
+              })
+            }
+            variant="outline"
+            className="w-full"
+          >
+            Login with Google
+          </Button>
+        </div>
+
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
-              {/* Social Logins */}
-              <div className="flex flex-col gap-4">
-                <Button variant="outline" className="w-full">
-                  Login with Apple
-                </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button>
-              </div>
-
               {/* Divider */}
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
@@ -89,7 +107,7 @@ const LoginForm = ({
                   id="email"
                   type="email"
                   placeholder="m@example.com"
-                  required
+                  // required
                   {...register("email")}
                 />
               </div>
@@ -108,7 +126,7 @@ const LoginForm = ({
                 <Input
                   id="password"
                   type="password"
-                  required
+                  // required
                   {...register("password")}
                 />
               </div>
