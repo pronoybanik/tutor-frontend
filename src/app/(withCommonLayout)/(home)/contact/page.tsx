@@ -11,7 +11,7 @@ export default function ContactPage() {
         {/* Contact Info Section */}
         <section className="grid lg:grid-cols-2 gap-8 items-center mb-16">
           <div>
-            <h2 className="text-xl font-semibold text-blue-600 mb-2">
+            <h2 className="text-xl font-semibold text-[#1dd1a1] mb-2">
               CONTACT
             </h2>
             <h3 className="text-4xl font-bold text-gray-800 mb-4">

@@ -33,12 +33,12 @@ const BlogPage = () => {
           type="text"
           placeholder="Blog Title"
           {...register("title", { required: true })}
-          className="w-full p-2 border rounded mb-2 focus:outline-[#1e3799]"
+          className="w-full p-2 border rounded mb-2 focus:outline-[#1dd1a1]"
         />
         <textarea
           placeholder="Blog Content"
           {...register("content", { required: true })}
-          className="w-full p-2 border rounded mb-2 focus:outline-[#1e3799]"
+          className="w-full p-2 border rounded mb-2 focus:outline-[#1dd1a1]"
           rows={3}
         />
         <PrimaryButton type="submit">Add Blog</PrimaryButton>

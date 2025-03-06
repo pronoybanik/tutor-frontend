@@ -133,7 +133,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="grid bg-gray-300 rounded-xl py-2 flex-1 text-left text-sm leading-tight">
+                <div className="grid bg-gray-500 rounded-2xl py-4 flex-1 text-left text-sm leading-tight">
                   <Logo />
                 </div>
               </Link>

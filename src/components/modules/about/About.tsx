@@ -1,13 +1,16 @@
 import Banner from "@/components/shared/banner";
 import PrimaryButton from "@/components/shared/PrimaryButton";
+import NMContainer from "@/components/ui/core/NMContainer";
 import Image from "next/image";
 import React from "react";
 
 const About = () => {
   return (
     <section>
-      <Banner title="About" path="Home - About" />
-      <div className="container mx-auto px-4 lg:px-8 py-8">
+      <NMContainer>
+        <Banner title="About" path="Home - About" />
+      </NMContainer>
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8">
         {/* About Us Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16 ">
           <div className="flex justify-center">

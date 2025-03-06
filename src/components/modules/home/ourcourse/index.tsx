@@ -7,7 +7,7 @@ const CoursesSection = ({ data }: { data: ISubject[] }) => {
   return (
     <div className="bg-gray-50 py-12  mt-16 px-6 md:px-12 lg:px-24">
       <div className="text-center mb-12 max-w-2xl mx-auto">
-        <h1 className="text-[#1e3799] uppercase font-semibold">--- courses ---</h1>
+        <h1 className="text-[#1dd1a1] uppercase font-semibold">--- courses ---</h1>
         <h2 className="text-4xl font-semibold my-4 font-mono uppercase">
           our courses 
         </h2>
