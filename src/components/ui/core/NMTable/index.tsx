@@ -23,7 +23,7 @@ interface NMTableProps<TData, TValue> {
 
 export function NMTable<TData, TValue>({
   columns,
-  data,
+  data = [], // Ensures data is always an array
 }: NMTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -37,31 +37,23 @@ export function NMTable<TData, TValue>({
         <TableHeader>
           {table?.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="bg-gray-200">
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    className="font-bold text-gray-600"
-                    key={header.id}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
+              {headerGroup.headers.map((header) => (
+                <TableHead className="font-bold text-gray-600" key={header.id}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              ))}
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {data.length > 0 ? ( // Check if data exists before mapping
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell className="py-4" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -81,3 +73,4 @@ export function NMTable<TData, TValue>({
     </div>
   );
 }
+

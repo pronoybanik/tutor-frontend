@@ -1,14 +1,21 @@
 "use client";
 import PrimaryButton from "@/components/shared/PrimaryButton";
+import { createBlogs } from "@/services/Blog";
 import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const BlogPage = () => {
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit : SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    // reset(); // Clear form after submission
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const result = await createBlogs(data);
+    if (result?.success) {
+      toast.success(result.message);
+      reset();
+    } else {
+      toast.error(result.message);
+    }
   };
 
   return (
@@ -34,11 +41,7 @@ const BlogPage = () => {
           className="w-full p-2 border rounded mb-2 focus:outline-[#1e3799]"
           rows={3}
         />
-        <PrimaryButton
-          type="submit"
-        >
-          Add Blog
-        </PrimaryButton>
+        <PrimaryButton type="submit">Add Blog</PrimaryButton>
       </form>
 
       {/* Blog List */}
