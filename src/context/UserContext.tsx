@@ -1,8 +1,8 @@
-
-"use client"
+"use client";
 
 import { getCurrentUser } from "@/services/AuthService";
 import { IUser } from "@/types/userType";
+import { getSession } from "next-auth/react";
 
 import {
   createContext,
@@ -25,6 +25,16 @@ const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  console.log("Context ", user);
+
+  const handleAuthUser = async () => {
+    const session = await getSession();
+
+    if (session?.user) {
+      setUser(session.user as IUser);
+    }
+    setIsLoading(false);
+  };
 
   const handleUser = async () => {
     const user = await getCurrentUser();
@@ -34,6 +44,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     handleUser();
+    handleAuthUser();
   }, [isLoading]);
 
   return (
@@ -52,7 +63,5 @@ export const useUser = () => {
 
   return context;
 };
-
-
 
 export default UserProvider;
