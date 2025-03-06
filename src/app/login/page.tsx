@@ -1,6 +1,6 @@
 import LoginForm from "@/components/modules/auth/login/LoginForm";
 import { GalleryVerticalEnd } from "lucide-react";
-import React from "react";
+import React, { Suspense } from "react";
 
 const LoginPage = () => {
   return (
@@ -12,7 +12,9 @@ const LoginPage = () => {
           </div>
           Acme Inc.
         </a>
-        <LoginForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   );

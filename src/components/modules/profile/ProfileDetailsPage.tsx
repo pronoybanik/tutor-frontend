@@ -3,19 +3,18 @@
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
 import { UserCircleIcon } from "lucide-react";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 import { getProfileInfo } from "@/services/Profile";
 import { useRouter } from "next/navigation";
 import { getUserInfoById } from "@/services/AuthService";
+import { IProfile } from "@/types";
 
 const TutorProfile = () => {
   const { user } = useUser();
-
-  const [profile, setProfile] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [profile, setProfile] = useState<IProfile | null>(null);
+  const [userData, setUserData] = useState<{ name: string; email: string; role: string } | null>(null);
   const routes = useRouter();
 
   useEffect(() => {
@@ -26,12 +25,11 @@ const TutorProfile = () => {
           console.error("Failed to fetch profile:", profileData.error);
           return;
         }
-
         setProfile(profileData.data);
 
         if (user?.userId) {
-          const userData = await getUserInfoById(user.userId);
-          setUserData(userData.data);
+          const userInfo = await getUserInfoById(user.userId);
+          setUserData(userInfo.data);
         } else {
           console.error("User ID is not available");
         }
@@ -43,7 +41,8 @@ const TutorProfile = () => {
     fetchProfile();
   }, [user]);
 
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: string | undefined) => {
+    if (!id) return;
     routes.push(`/profile/${id}`);
   };
 
@@ -58,7 +57,7 @@ const TutorProfile = () => {
               <Image
                 width={100}
                 height={100}
-                src={profile?.image || "/placeholder-image.png"}
+                src={profile.image}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
@@ -68,65 +67,51 @@ const TutorProfile = () => {
           </div>
 
           {/* Profile Info */}
-          <div className="flex-1 text-center md:text-left ">
+          <div className="flex-1 text-center md:text-left">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {userData?.name}
+              {userData?.name || "Loading..."}
             </h2>
             <h4 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {userData?.email}
+              {userData?.email || "No email provided"}
             </h4>
-            <Badge className="mt-2">{userData?.role}</Badge>
+            <Badge className="mt-2">{userData?.role || "Unknown"}</Badge>
           </div>
         </div>
 
+        {/* Verification Status */}
         {profile?.role === "tutor" ? (
-          profile?.isVerified ? (
-            <div
-              role="alert"
-              className="rounded-sm border-l-4 border-green-500 bg-green-100 p-4"
-            >
+          profile.isVerified ? (
+            <div className="rounded-sm border-l-4 border-green-500 bg-green-100 p-4">
               <strong className="block font-medium text-green-800">
                 You Are a Verified Teacher
               </strong>
             </div>
           ) : (
-            <div
-              role="alert"
-              className="rounded-sm border-l-4 border-yellow-500 bg-yellow-100 p-4"
-            >
+            <div className="rounded-sm border-l-4 border-yellow-500 bg-yellow-100 p-4">
               <strong className="block font-medium text-yellow-800">
                 You Are Not Verified as a Teacher Yet
               </strong>
             </div>
           )
         ) : (
-          <div
-            role="alert"
-            className="rounded-sm border-l-4 border-blue-500 bg-blue-100 p-4"
-          >
+          <div className="rounded-sm border-l-4 border-blue-500 bg-blue-100 p-4">
             <strong className="block font-medium text-blue-800">
               You Are a Verified Student
             </strong>
           </div>
         )}
 
-        <br />
-        {profile?.requestRole === "tutor" ? (
-          <div
-            role="alert"
-            className="rounded-sm border-s-4 border-red-500 bg-red-50 p-4"
-          >
+        {/* Request Role Alert */}
+        {profile?.requestRole === "tutor" && (
+          <div className="rounded-sm border-s-4 border-red-500 bg-red-50 p-4">
             <strong className="block font-medium text-red-800">
-              Your Request Sent Please wait our mail
+              Your Request Sent. Please wait for our email.
             </strong>
-
             <p className="mt-2 text-sm text-red-700">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo
-              quasi assumenda numquam deserunt consectetur autem nihil quos
-              debitis dolor culpa.
+              Your tutor request is under review. Please check your email for further updates.
             </p>
           </div>
-        ) : null}
+        )}
 
         {/* Profile Details */}
         {userData?.role === "tutor" ? (
@@ -135,26 +120,30 @@ const TutorProfile = () => {
               Experience
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              {profile?.experience} years of teaching experience
+              {profile?.experience ? `${profile.experience} years of teaching experience` : "No experience listed"}
             </p>
 
             <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
               Subjects
             </h3>
             <div className="flex flex-wrap gap-2 mt-2">
-              {profile?.subjects?.map((subject, index) => (
-                <Badge key={index} className="bg-blue-500 text-white">
-                  {subject}
-                </Badge>
-              ))}
+              {profile?.subjects && profile.subjects.length > 0 ? (
+                profile.subjects.map((subject, index) => (
+                  <Badge key={index} className="bg-blue-500 text-white">
+                    {subject}
+                  </Badge>
+                ))
+              ) : (
+                <p className="text-gray-600 dark:text-gray-300">No subjects listed</p>
+              )}
             </div>
             <p className="mt-2 text-gray-600 dark:text-gray-300">
-              {profile?.bio}
+              {profile?.bio || "No bio available"}
             </p>
           </div>
         ) : (
-          <h1 className="text-center text-lg font-semibold  uppercase text-red-300  dark:text-white">
-            You want to apply as a tutor Go Edit Button
+          <h1 className="text-center text-lg font-semibold uppercase text-red-300 dark:text-white">
+            Want to apply as a tutor? Click the Edit button below.
           </h1>
         )}
 
