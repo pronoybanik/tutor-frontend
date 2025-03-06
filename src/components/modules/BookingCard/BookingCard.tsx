@@ -27,16 +27,16 @@ const BookingCard = ({ booking }: { booking: IBooking }) => {
         <Image
           width={200}
           height={200}
-          src={booking.subjectId.image}
-          alt={booking.subjectId.name}
+          src={booking.subjectId?.image}
+          alt={booking.subjectId?.name}
           className="w-full md:w-24 md:h-24 object-cover rounded-md"
         />
 
         {/* Booking Details Section */}
         <div className="flex-1 text-center justify-center md:text-left">
-          <h2 className="text-lg font-semibold">{booking.subjectId.name}</h2>
+          <h2 className="text-lg font-semibold">{booking.subjectId?.name}</h2>
           <p className="text-sm text-gray-500">
-            {booking.studentId.name} → {booking.tutorId.name}
+            {booking.studentId.name} → {booking.tutorId?.name}
           </p>
           <p className="text-sm text-gray-500">
             Date: {new Date(booking.date).toLocaleDateString()}

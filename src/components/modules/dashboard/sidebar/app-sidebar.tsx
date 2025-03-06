@@ -53,13 +53,13 @@ const data = {
       icon: Shield,
       items: [
         {
-          title: "Manage student",
+          title: "Manage student and tutor",
           url: "/dashboard/admin/studentlist",
         },
-        {
-          title: "Manage Tutor",
-          url: "/dashboard/admin/tutorlist",
-        },
+        // {
+        //   title: "Manage Tutor",
+        //   url: "/dashboard/admin/tutorlist",
+        // },
         {
           title: "Manage Category",
           url: "/dashboard/admin/managecategory",

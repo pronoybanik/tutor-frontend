@@ -2,18 +2,26 @@
 
 import PrimaryButton from "@/components/shared/PrimaryButton";
 import { NMTable } from "@/components/ui/core/NMTable";
+import { deleteSubject } from "@/services/Subject";
 import { ISubject } from "@/types";
 import { Plus, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
-  const router = useRouter();  
+  const router = useRouter();
 
-  const handleDelete = (subject: ISubject) => {
-    console.log("Deleting subject:", subject);
-    // Add logic for deleting the subject
+  const handleDelete = async (id: string) => {
+    const result = await deleteSubject(id);
+    if (result.success) {
+      toast.success(result.message);
+      return true;
+    } else {
+      toast.error(result.message);
+      return false;
+    }
   };
 
   const columns = [
@@ -23,7 +31,7 @@ const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
       cell: ({ row }: { row: { original: ISubject } }) => (
         <div className="flex items-center space-x-3">
           <Image
-            src={row.original.image || "/placeholder-image.png"} 
+            src={row.original.image || "/placeholder-image.png"}
             alt={row.original.name}
             width={40}
             height={40}
@@ -54,7 +62,7 @@ const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
         <button
           className="text-red-500"
           title="Delete"
-          onClick={() => handleDelete(row.original)}
+          onClick={() => handleDelete(row.original._id)}
         >
           <Trash className="w-5 h-5" />
         </button>
@@ -67,11 +75,11 @@ const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">Manage subject</h1>
         <div className="flex items-center gap-2">
-          <PrimaryButton
+          {/* <PrimaryButton
             handler={() => router.push("/dashboard/tutor/createsubject")}
           >
             Add Subject <Plus />
-          </PrimaryButton>
+          </PrimaryButton> */}
 
           {/* <DiscountModal
             setSelectedIds={setSelectedIds}

@@ -3,9 +3,9 @@
 
 import { cookies } from "next/headers";
 import { revalidateTag } from "next/cache";
-import { FieldValues } from "react-hook-form";
 
-export const createSubject = async (data: FieldValues) => {
+
+export const createSubject = async (data: any) => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/subject`, {
             method: "POST",
@@ -16,8 +16,8 @@ export const createSubject = async (data: FieldValues) => {
         });
 
 
-        const result = await res.json();
         revalidateTag("Subject")
+        const result = await res.json();
         return result;
     } catch (error: any) {
         console.error("Error creating subject:", error);
@@ -68,7 +68,7 @@ export const deleteSubject = async (id: string) => {
                 Authorization: (await cookies()).get("accessToken")?.value || "",
             },
         });
-
+        revalidateTag("Subject")
         const data = await res.json();
         return data;
 

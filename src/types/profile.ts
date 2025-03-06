@@ -1,3 +1,5 @@
+import { IUser } from "./userType";
+
 export interface IReview {
   studentId: string; 
   comment: string;
@@ -18,7 +20,7 @@ export interface IRates {
 
 export interface IProfile{
   _id: string;
-  userId: string; 
+  userId: IUser; 
   image?: string;
   bio?: string;
   subjects: string[];

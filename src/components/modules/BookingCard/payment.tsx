@@ -1,8 +1,30 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import PrimaryButton from "@/components/shared/PrimaryButton";
+import { createOrder } from "@/services/Booking";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function PaymentDetails() {
+  const router = useRouter();
+  const handleBooking = async () => {
+    const orderLoading = toast.loading("Order is being placed");
+    try {
+      const res = await createOrder("");
+
+      if (res.success) {
+        toast.success(res.message, { id: orderLoading });
+        router.push(res.data.paymentUrl);
+      }
+
+      if (!res.success) {
+        toast.error(res.message, { id: orderLoading });
+      }
+    } catch (error: any) {
+      toast.error(error.message, { id: orderLoading });
+    }
+  };
+
   return (
     <div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4 h-fit p-5">
       <h1 className="text-2xl font-bold">Payment Details</h1>
@@ -24,9 +46,12 @@ export default function PaymentDetails() {
         <p className="text-gray-500">Grand Total</p>
         <p className="font-semibold">$0.00</p>
       </div>
-      <Button className="w-full text-xl font-semibold py-5">
-        Order Now
-      </Button>
+      <PrimaryButton
+        handler={handleBooking}
+        className="w-full text-xl font-semibold py-5"
+      >
+        Please Payment
+      </PrimaryButton>
     </div>
   );
 }
