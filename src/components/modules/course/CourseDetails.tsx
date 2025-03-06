@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Banner from "@/components/shared/banner";
 import PrimaryButton from "@/components/shared/PrimaryButton";
@@ -20,8 +21,6 @@ const CourseDetails = ({ id }: { id: string }) => {
     const fetchCourse = async () => {
       try {
         const res = await getSingleSubject(id);
-        console.log("subjectdata", res.data);
-
         setCourse(res.data);
       } catch (error) {
         console.error("Error fetching course details:", error);

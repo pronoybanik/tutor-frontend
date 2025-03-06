@@ -84,7 +84,7 @@ const ProfileDetails = () => {
     if (applyForTutor) {
       formattedData.subjects = formData.subjects
         .split(",")
-        .map((s: any) => s.trim());
+        .map((s: string) => s.trim());
       formattedData.bio = formData.bio;
       formattedData.experience = Number(formData.experience);
       formattedData.rates = { hourlyRate: Number(formData.hourlyRate) };

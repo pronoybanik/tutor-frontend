@@ -162,6 +162,19 @@ const NavBar = () => {
           >
             About
           </Link>
+          <Link
+            href="/contact"
+            className="hover:text-[#1dd1a1] text-white font-bold transition duration-300"
+          >
+            contact
+          </Link>
+
+          <Link
+            href="/course"
+            className="hover:text-[#1dd1a1] text-white font-bold transition duration-300"
+          >
+            course
+          </Link>
          
         
          

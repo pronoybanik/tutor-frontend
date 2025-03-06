@@ -1,12 +1,13 @@
 "use client";
 
 import { useGetBlogByIdQuery } from "@/redux/api/Blog/blogApi";
+import { IBlog } from "@/types";
 import React from "react";
 
 const BlogDetailsItem = ({ id }: { id: string }) => {
   const { data, error, isLoading } = useGetBlogByIdQuery(id);
 
-  const blog = data?.data;
+  const blog = data?.data as IBlog | undefined;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">

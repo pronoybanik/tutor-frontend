@@ -5,7 +5,7 @@ import React from "react";
 
 const BlogsPage = () => {
   return (
-    <div className="">
+    <div>
       <NMContainer>
         <Banner title="About" path="Home -> About" />
       </NMContainer>

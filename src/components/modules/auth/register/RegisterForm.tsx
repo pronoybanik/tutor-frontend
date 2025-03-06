@@ -31,7 +31,7 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
       } else {
         toast.error(res?.message);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
     }
   };

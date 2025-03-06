@@ -1,18 +1,14 @@
 "use client";
 
-import PrimaryButton from "@/components/shared/PrimaryButton";
 import { NMTable } from "@/components/ui/core/NMTable";
 import { deleteSubject } from "@/services/Subject";
 import { ISubject } from "@/types";
-import { Plus, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
 
 const SubjectManage = ({ subjectData }: { subjectData: ISubject[] }) => {
-  const router = useRouter();
-
   const handleDelete = async (id: string) => {
     const result = await deleteSubject(id);
     if (result.success) {

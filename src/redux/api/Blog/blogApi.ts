@@ -11,7 +11,7 @@ export const BlogApi = createApi({
       query: () => "/Blogs",     
     }),
     
-    getBlogById: builder.query<IBlog, string>({
+    getBlogById: builder.query<IBlogResponse, string>({
       query: (id) => `/blogs/${id}`,
       
     }),

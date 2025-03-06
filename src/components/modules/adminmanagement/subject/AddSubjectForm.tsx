@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
@@ -79,7 +79,7 @@ const AddSubjectForm = () => {
     setDateTimes(dateTimes.map((dt) => (dt.id === id ? { ...dt, value } : dt)));
   };
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const modifiedData = {
       ...data,
       hourly: parseFloat(data.price),
@@ -205,7 +205,7 @@ const AddSubjectForm = () => {
             {dateTimes.map((dt, index) => (
               <div key={dt.id} className=" gap-4 mt-2 items-center">
                 <DateTimePicker
-                  value={dt.value}
+                  value={dt.value }
                   onChange={(value: string) => updateDateTime(dt.id, value)}
                 />
                 {index > 0 && (
