@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { useUser } from "@/context/UserContext";
 import { loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PrimaryButton from "@/components/shared/PrimaryButton";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -31,8 +31,8 @@ const LoginForm = ({
   } = useForm();
   const { setIsLoading } = useUser();
 
-  // const searchParams = useSearchParams();
-  // const redirect = searchParams.get("redirectPath");
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -42,10 +42,11 @@ const LoginForm = ({
       if (res?.success) {
         toast.success(res?.message);
         router.push("/");
-        // if (redirect) {
-        //   router.push(redirect);
-        // } else {
-        // }
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/profile");
+        }
       } else {
         toast.error(res?.message);
       }
