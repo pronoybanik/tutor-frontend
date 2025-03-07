@@ -206,7 +206,7 @@ const AddSubjectForm = () => {
               <div key={dt.id} className=" gap-4 mt-2 items-center">
                 <DateTimePicker
                   value={dt.value }
-                  onChange={(value: string) => updateDateTime(dt.id, value)}
+                  onChange={(value) => updateDateTime(dt.id, value)}
                 />
                 {index > 0 && (
                   <Button

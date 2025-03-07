@@ -1,8 +1,7 @@
 "use client";
- 
+
 import * as React from "react";
 import { format } from "date-fns";
- 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,21 +12,27 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { CalendarIcon } from "lucide-react";
- 
 
+interface DateTimePickerProps {
+  value: string; // Accepts a string (ISO date format)
+  onChange: (value: string) => void; // Callback function for updating date
+}
 
-
-export function DateTimePicker() {
-  const [date, setDate] = React.useState<Date>();
+export function DateTimePicker({ value, onChange }: DateTimePickerProps) {
+  const [date, setDate] = React.useState<Date | null>(
+    value ? new Date(value) : null
+  );
   const [isOpen, setIsOpen] = React.useState(false);
- 
+
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);
+
   const handleDateSelect = (selectedDate: Date | undefined) => {
     if (selectedDate) {
       setDate(selectedDate);
+      onChange(selectedDate.toISOString());
     }
   };
- 
+
   const handleTimeChange = (
     type: "hour" | "minute" | "ampm",
     value: string
@@ -47,9 +52,10 @@ export function DateTimePicker() {
         );
       }
       setDate(newDate);
+      onChange(newDate.toISOString());
     }
   };
- 
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
@@ -61,18 +67,14 @@ export function DateTimePicker() {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? (
-            format(date, "MM/dd/yyyy hh:mm aa")
-          ) : (
-            <span>MM/DD/YYYY hh:mm aa</span>
-          )}
+          {date ? format(date, "MM/dd/yyyy hh:mm aa") : <span>Select Date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <div className="sm:flex">
           <Calendar
             mode="single"
-            selected={date}
+            selected={date || undefined}
             onSelect={handleDateSelect}
             initialFocus
           />
@@ -104,14 +106,10 @@ export function DateTimePicker() {
                     key={minute}
                     size="icon"
                     variant={
-                      date && date.getMinutes() === minute
-                        ? "default"
-                        : "ghost"
+                      date && date.getMinutes() === minute ? "default" : "ghost"
                     }
                     className="sm:w-full shrink-0 aspect-square"
-                    onClick={() =>
-                      handleTimeChange("minute", minute.toString())
-                    }
+                    onClick={() => handleTimeChange("minute", minute.toString())}
                   >
                     {minute}
                   </Button>
@@ -119,7 +117,7 @@ export function DateTimePicker() {
               </div>
               <ScrollBar orientation="horizontal" className="sm:hidden" />
             </ScrollArea>
-            <ScrollArea className="">
+            <ScrollArea>
               <div className="flex sm:flex-col p-2">
                 {["AM", "PM"].map((ampm) => (
                   <Button

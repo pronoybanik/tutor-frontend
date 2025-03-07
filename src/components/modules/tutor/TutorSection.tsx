@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 const TutorSectionDetails = async ({ id }: { id: string }) => {
+
   const result = await getProfileInfoById(id);
 
   if (!result) {
@@ -26,7 +27,7 @@ const TutorSectionDetails = async ({ id }: { id: string }) => {
           className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-gray-300"
         />
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Tutor Profile</h2>
+          {/* <h2 className="text-2xl font-bold text-gray-800">Tutor Profile</h2> */}
           <p className="text-gray-600">{bio || "No bio available."}</p>
           {isVerified && (
             <span className="text-green-600 font-semibold">

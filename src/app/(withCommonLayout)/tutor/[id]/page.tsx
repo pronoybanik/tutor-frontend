@@ -1,4 +1,6 @@
 import TutorSectionDetails from "@/components/modules/tutor/TutorSection";
+import Banner from "@/components/shared/banner";
+import NMContainer from "@/components/ui/core/NMContainer";
 import React from "react";
 
 const TutorDetailsPage = async ({
@@ -9,9 +11,12 @@ const TutorDetailsPage = async ({
   const { id } = await params;
   return (
     <div>
-      <h1>
+      <NMContainer>
+        <Banner title="Tutor" path="Tutor - Details" />
+      </NMContainer>
+      <div>
         <TutorSectionDetails id={id} />
-      </h1>
+      </div>
     </div>
   );
 };

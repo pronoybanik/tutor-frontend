@@ -33,7 +33,9 @@ const BlogSection = () => {
 
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 w-full max-w-7xl mx-auto">
         {blogs && blogs.length > 0
-          ? blogs.map((blog) => <BlogCard key={blog._id} blog={blog} />)
+          ? blogs
+              .slice(0, 3)
+              .map((blog) => <BlogCard key={blog._id} blog={blog} />)
           : !isLoading && (
               <p className="text-center text-gray-500">No blogs available.</p>
             )}

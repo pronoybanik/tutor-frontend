@@ -7,7 +7,7 @@ const CourseItem = ({ data: course }: { data: ISubject }) => {
 
   return (
     <Link
-      href={`/course/${course._id}`}
+      href={`/course/${course?._id}`}
       className="relative overflow-hidden rounded-lg shadow-sm transition hover:shadow-lg"
     >
       {/* Course Image */}
@@ -43,7 +43,7 @@ const CourseItem = ({ data: course }: { data: ISubject }) => {
 
           {/* Learn More Button */}
           <Link
-            href={`/course/${course._id}`}
+            href={`/course/${course?._id}`}
             className="group mt-4 inline-flex items-center  gap-1 text-sm font-medium text-[#1dd1a1]"
           >
             Find out more
