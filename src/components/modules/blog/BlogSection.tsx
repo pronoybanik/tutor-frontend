@@ -7,8 +7,10 @@ import BlogCard from "./BlogCard";
 
 const BlogSection = () => {
   const { data, error, isLoading } = useGetBlogsQuery();
+  console.log("blog", data);
 
   const blogs = data?.data as IBlog[] | undefined;
+  console.log("blog", blogs);
   return (
     <div className="bg-gray-50 py-16">
       <div className="text-center mb-12 max-w-2xl mx-auto">

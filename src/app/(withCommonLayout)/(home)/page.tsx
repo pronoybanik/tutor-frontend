@@ -9,8 +9,7 @@ import React from "react";
 import BlogSection from "@/components/modules/blog/BlogSection";
 
 const HomePage = async () => {
-  const {data} = await getAllSubject();
-  
+  const {data} = await getAllSubject();  
   const tutorData = await getAllTutorProfileInfo();
 
   return (
