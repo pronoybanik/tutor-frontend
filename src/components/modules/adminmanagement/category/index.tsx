@@ -11,7 +11,6 @@ import { deleteCategory } from "@/services/Category";
 import { toast } from "sonner";
 
 const ManageCategory = ({ category }: { category: ICategory[] }) => {
-  console.log("table oo", category);
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);

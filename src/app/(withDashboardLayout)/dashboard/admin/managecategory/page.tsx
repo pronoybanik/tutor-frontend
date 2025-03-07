@@ -4,6 +4,7 @@ import React from "react";
 
 const ManageCategoryPage = async () => {
   const { data } = await getAllCategory();
+  
   return (
     <div>
       <ManageCategory category={data} />
