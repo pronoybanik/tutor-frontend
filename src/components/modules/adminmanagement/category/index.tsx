@@ -11,7 +11,6 @@ import { deleteCategory } from "@/services/Category";
 import { toast } from "sonner";
 
 const ManageCategory = ({ category }: { category: ICategory[] }) => {
-
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -38,10 +37,10 @@ const ManageCategory = ({ category }: { category: ICategory[] }) => {
       toast.error("An error occurred while deleting the category.");
     }
   };
-  
 
   const columns: ColumnDef<ICategory>[] = [
     {
+      id: "category_name", 
       accessorKey: "name",
       header: () => <div>Category Name</div>,
       cell: ({ row }) => (
@@ -50,8 +49,8 @@ const ManageCategory = ({ category }: { category: ICategory[] }) => {
         </div>
       ),
     },
-
     {
+      id: "action", 
       accessorKey: "action",
       header: () => <div>Action</div>,
       cell: ({ row }) => (
@@ -75,7 +74,6 @@ const ManageCategory = ({ category }: { category: ICategory[] }) => {
         </div>
       </div>
       <NMTable columns={columns} data={category || []} />
-      {/* <TablePagination totalPage={meta?.totalPage} /> */}
 
       <DeleteConfirmationModal
         name={selectedItem}

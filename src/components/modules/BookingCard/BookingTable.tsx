@@ -49,30 +49,36 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
     {
       accessorKey: "subjectId.image",
       header: "Image",
-      cell: ({ row }) => (
-        <Image
-          src={row.original.subjectId.image}
-          height={50}
-          width={50}
-          alt="subject"
-          className="w-12 h-12 rounded-lg"
-        />
-      ),
+      cell: ({ row }) => {
+        console.log("Row Data:", row.original); // Logs the entire row data
+        console.log("Subject Image URL:", row.original?.subjectId?.image); // Logs the image URL
+    
+        return (
+          <Image
+            src={row.original?.subjectId?.image || "/placeholder.jpg"} // Provide a fallback image
+            height={50}
+            width={50}
+            alt="subject"
+            className="w-12 h-12 rounded-lg"
+          />
+        );
+      },
     },
+    
     {
       accessorKey: "subjectId.name",
       header: "Subject",
-      cell: ({ row }) => <span>{row.original.subjectId.name}</span>,
+      cell: ({ row }) => <span>{row.original?.subjectId?.name}</span>,
     },
     {
       accessorKey: "studentId.name",
       header: "Student",
-      cell: ({ row }) => <span>{row.original.studentId.name}</span>,
+      cell: ({ row }) => <span>{row.original.studentId?.name}</span>,
     },
     {
       accessorKey: "tutorId.name",
       header: "Tutor",
-      cell: ({ row }) => <span>{row.original.tutorId.name}</span>,
+      cell: ({ row }) => <span>{row.original.tutorId?.name}</span>,
     },
     {
       accessorKey: "date",
@@ -84,15 +90,15 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
     {
       accessorKey: "duration",
       header: "Duration",
-      cell: ({ row }) => <span>{row.original.duration} hrs</span>,
+      cell: ({ row }) => <span>{row.original?.duration} hrs</span>,
     },
     {
       accessorKey: "price",
       header: "Price",
-      cell: ({ row }) => <span>${row.original.price}</span>,
+      cell: ({ row }) => <span>${row.original?.price}</span>,
     },
     {
-      accessorKey: "status",
+      accessorKey: "status_display", 
       header: "Status",
       cell: ({ row }) => (
         <span
@@ -107,8 +113,8 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
       ),
     },
     {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: "status_update", // ✅ Renamed for uniqueness
+      header: "Update Status",
       cell: ({ row }) => (
         <select
           className="px-2 py-1 text-sm font-medium rounded-md border border-gray-300"
@@ -133,7 +139,7 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
             <Info size={16} />
             Get ID & Data
           </Button>
-
+  
           <Button
             className="bg-red-600 text-white px-3 py-1 rounded-md flex items-center gap-2"
             onClick={() => handleDelete(row.original._id)}
@@ -146,6 +152,7 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
       ),
     },
   ];
+  
 
   return (
     <NMContainer>
