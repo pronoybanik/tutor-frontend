@@ -57,7 +57,6 @@ const CourseDetails = ({ id }: { id: string }) => {
       toast.error("Something went wrong!");
     }
 
-    console.log("Requested Course:", data);
   };
 
   if (!course) {

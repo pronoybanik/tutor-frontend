@@ -37,7 +37,7 @@ const BlogCard = ({ blog }: { blog: IBlog }) => {
       </p>
 
       <div className="flex items-center gap-2 text-gray-500 text-sm mt-4">
-        <span>By {blog.author.name}</span> •
+        <span>By {blog.author?.name}</span> •
         <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
       </div>
 

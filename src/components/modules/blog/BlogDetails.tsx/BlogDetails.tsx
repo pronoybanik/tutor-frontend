@@ -37,13 +37,13 @@ const BlogDetailsItem = ({ id }: { id: string }) => {
             <h2 className="text-xl font-semibold text-gray-800">Author</h2>
             <div className="flex items-center gap-4 mt-2">
               <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-lg font-bold text-gray-600">
-                {blog.author.name[0]}
+                {blog.author?.name[0]}
               </div>
               <div>
-                <p className="text-gray-900 font-medium">{blog.author.name}</p>
-                <p className="text-gray-600 text-sm">{blog.author.email}</p>
+                <p className="text-gray-900 font-medium">{blog?.author?.name}</p>
+                <p className="text-gray-600 text-sm">{blog?.author?.email}</p>
                 <span className="bg-blue-500 text-white text-xs px-3 py-1 rounded-full">
-                  {blog.author.role}
+                  {blog?.author?.role}
                 </span>
               </div>
             </div>

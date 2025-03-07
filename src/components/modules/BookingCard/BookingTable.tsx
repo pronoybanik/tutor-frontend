@@ -40,8 +40,7 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
 
   // Get ID & Data
   const handleGetData = (row: IBooking) => {
-    console.log("Booking ID:", row._id);
-    console.log("Booking Data:", row);
+   
     toast.info(`Booking ID: ${row._id}`);
   };
 
@@ -50,12 +49,11 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
       accessorKey: "subjectId.image",
       header: "Image",
       cell: ({ row }) => {
-        console.log("Row Data:", row.original); // Logs the entire row data
-        console.log("Subject Image URL:", row.original?.subjectId?.image); // Logs the image URL
-    
+        console.log("row.original", row.original);
+        
         return (
           <Image
-            src={row.original?.subjectId?.image || "/placeholder.jpg"} // Provide a fallback image
+            src={row.original.subjectId.image || "/placeholder.jpg"} // Provide a fallback image
             height={50}
             width={50}
             alt="subject"
@@ -68,17 +66,17 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
     {
       accessorKey: "subjectId.name",
       header: "Subject",
-      cell: ({ row }) => <span>{row.original?.subjectId?.name}</span>,
+      cell: ({ row }) => <span>{row.original.subjectId?.name || "N/A"}</span>,
     },
     {
       accessorKey: "studentId.name",
       header: "Student",
-      cell: ({ row }) => <span>{row.original.studentId?.name}</span>,
+      cell: ({ row }) => <span>{row.original.studentId.name || "N/A"}</span>,
     },
     {
       accessorKey: "tutorId.name",
       header: "Tutor",
-      cell: ({ row }) => <span>{row.original.tutorId?.name}</span>,
+      cell: ({ row }) => <span>{row.original.tutorId.name || "N/A"}</span>,
     },
     {
       accessorKey: "date",
@@ -90,12 +88,12 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
     {
       accessorKey: "duration",
       header: "Duration",
-      cell: ({ row }) => <span>{row.original?.duration} hrs</span>,
+      cell: ({ row }) => <span>{row.original.duration || "N/A"} hrs</span>,
     },
     {
       accessorKey: "price",
       header: "Price",
-      cell: ({ row }) => <span>${row.original?.price}</span>,
+      cell: ({ row }) => <span>${row.original.price || "N/A"}</span>,
     },
     {
       accessorKey: "status_display", 

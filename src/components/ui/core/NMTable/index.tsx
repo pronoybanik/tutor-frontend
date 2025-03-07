@@ -37,9 +37,7 @@ export function NMTable<TData, TValue>({
         <TableHeader>
           {table?.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="bg-gray-200">
-              {headerGroup.headers.map((header) => {
-                console.log("header", header);
-                
+              {headerGroup.headers.map((header) => {                
                 return (
                   <TableHead
                     className="font-bold text-gray-600"

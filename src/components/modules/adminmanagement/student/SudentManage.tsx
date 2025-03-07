@@ -20,7 +20,6 @@ interface StudentManageProps {
 }
 
 const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
-  console.log(ProfileData);
   
   const handleRoleChange = async (id: string, role: string) => {
     try {
@@ -39,12 +38,12 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
     {
       accessorKey: "User Nmae",
       header: "User Name",
-      cell: ({ row }) => <span>{row.original?.userId?.name || "N/A"}</span>,
+      cell: ({ row }) => <span>{row.original.userId?.name || "N/A"}</span>,
     },
     {
       accessorKey: "User Email",
       header: "User Email",
-      cell: ({ row }) => <span>{row.original?.userId?.email || "N/A"}</span>,
+      cell: ({ row }) => <span>{row.original.userId?.email || "N/A"}</span>,
     },
     {
       accessorKey: "User Role",
@@ -56,7 +55,7 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
       header: "Profile Role",
       cell: ({ row }) => (
         <span className="bg-[#1dd1a1] flex justify-center text-xs text-black font-semibold p-2 rounded-xl">
-          {row.original?.role || "N/A"}
+          {row.original.role || "N/A"}
         </span>
       ),
     },
@@ -67,7 +66,7 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
         <div>
           {row.original.requestRole ? (
             <span className="bg-blue-500 flex justify-center text-xs text-white font-semibold p-2 rounded-xl text-center">
-              {row.original?.requestRole || "N/A"}
+              {row.original.requestRole || "N/A"}
             </span>
           ) : (
             <h1 className="bg-red-400 text-xs text-white font-semibold p-2 rounded-xl text-center">
@@ -80,24 +79,24 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
     {
       accessorKey: "experience",
       header: "Experience (Years)",
-      cell: ({ row }) => <span>{row.original?.experience || "N/A"}</span>,
+      cell: ({ row }) => <span>{row.original.experience || "N/A"}</span>,
     },
     {
       accessorKey: "ratings",
       header: "Ratings",
-      cell: ({ row }) => <span>{row.original?.ratings }</span>,
+      cell: ({ row }) => <span>{row.original.ratings }</span>,
     },
     {
       accessorKey: "isVerified",
       header: "Verified",
-      cell: ({ row }) => <span>{row.original?.isVerified ? "Yes" : "No"}</span>,
+      cell: ({ row }) => <span>{row.original.isVerified ? "Yes" : "No"}</span>,
     },
     {
       accessorKey: "roleSelection",
       header: "Change Role",
       cell: ({ row }) => (
         <Select
-          defaultValue={row.original?.role || "N/A"}
+          defaultValue={row.original.role || "N/A"}
           onValueChange={(value) => handleRoleChange(row.original?._id, value)}
         >
           <SelectTrigger>

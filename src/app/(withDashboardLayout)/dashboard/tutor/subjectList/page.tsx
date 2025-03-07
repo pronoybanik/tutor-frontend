@@ -3,11 +3,13 @@ import { getTutorCreatedSubject } from "@/services/Subject";
 import React from "react";
 
 const SubjectListPage = async () => {
-  const data = await getTutorCreatedSubject();
+  const  data  = await getTutorCreatedSubject();
+  console.log("s",data?.data);
+  
 
   return (
     <div>
-      <StudentList data={data.data} />
+      <StudentList data={data?.data} />
     </div>
   );
 };

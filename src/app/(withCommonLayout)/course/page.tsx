@@ -6,6 +6,7 @@ import React from "react";
 
 const CoursePage = async () => {
   const { data: subjectData } = await getAllSubject();
+  console.log("prient 1", subjectData);
 
   return (
     <div className="mt-4">

@@ -17,7 +17,6 @@ const BookingCard = ({ booking }: { booking: IBooking }) => {
       toast.error("Failed to delete booking.");
     }
 
-    console.log("Deleting booking ID:", booking._id);
   };
 
   return (

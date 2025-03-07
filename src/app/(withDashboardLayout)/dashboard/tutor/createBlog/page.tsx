@@ -1,5 +1,6 @@
 "use client";
 import PrimaryButton from "@/components/shared/PrimaryButton";
+import { useUser } from "@/context/UserContext";
 import { createBlogs } from "@/services/Blog";
 import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -7,9 +8,14 @@ import { toast } from "sonner";
 
 const BlogPage = () => {
   const { register, handleSubmit, reset } = useForm();
+  const { user } = useUser();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const result = await createBlogs(data);
+    const blogData = {
+      userId: user?.userId,
+      ...data,
+    };
+    const result = await createBlogs(blogData);
     if (result?.success) {
       toast.success(result.message);
       reset();

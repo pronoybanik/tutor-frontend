@@ -4,7 +4,6 @@ import React from "react";
 
 const ManageSubjectPage = async () => {
   const { data } = await getAllSubject();
-
   return (
     <div>
       <SubjectManage subjectData={data} />
