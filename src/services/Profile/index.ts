@@ -84,6 +84,28 @@ export const updateProfile = async (id: string, data: any) => {
   }
 };
 
+export const updateProfileByFeedBack = async (id: string, data: any) => {
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/profile/${id}/feedback`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("accessToken")?.value || "",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    revalidateTag("Profile");
+    return await res.json();
+  } catch (error) {
+    console.error("Error updating profile:", error);
+  }
+};
+
 
 export const updateProfileByRole = async (id: string, data: string) => {
   try {

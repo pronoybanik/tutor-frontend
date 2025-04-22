@@ -8,9 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getProfileInfoById, updateProfile } from "@/services/Profile";
 import { IProfile } from "@/types";
+import { useUser } from "@/context/UserContext";
 
 const ProfileDetails = () => {
+  const { user } = useUser();
   const { id } = useParams();
+  const router = useRouter();
+
   const [profile, setProfile] = useState<IProfile | null>(null);
   const [applyForTutor, setApplyForTutor] = useState(false);
 
@@ -25,9 +29,6 @@ const ProfileDetails = () => {
     },
   });
 
-  const router = useRouter();
-
-  // Fetch profile data
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -46,16 +47,15 @@ const ProfileDetails = () => {
     }
   }, [id, setValue]);
 
-  // Handle form submission
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     const formattedData: Partial<IProfile> = {};
 
-    const imageFile = formData.image[0]; // Extract file from FileList
+    const imageFile = formData.image[0];
     if (imageFile) {
       const uploadData = new FormData();
       uploadData.append("file", imageFile);
-      uploadData.append("upload_preset", "Book-sell-shop"); // Cloudinary preset
-      uploadData.append("cloud_name", "dvcbclqid"); // Cloudinary cloud name
+      uploadData.append("upload_preset", "Book-sell-shop");
+      uploadData.append("cloud_name", "dvcbclqid");
 
       try {
         const imageResponse = await fetch(
@@ -73,7 +73,7 @@ const ProfileDetails = () => {
         }
 
         const imgData = await imageResponse.json();
-        formattedData.image = imgData.secure_url; // Save uploaded image URL
+        formattedData.image = imgData.secure_url;
       } catch (error) {
         console.error("Image upload error:", error);
         alert("Error uploading image. Please try again.");
@@ -81,11 +81,12 @@ const ProfileDetails = () => {
       }
     }
 
-    if (applyForTutor) {
+    formattedData.bio = formData.bio;
+
+    if (user?.role === "tutor" || applyForTutor) {
       formattedData.subjects = formData.subjects
         .split(",")
         .map((s: string) => s.trim());
-      formattedData.bio = formData.bio;
       formattedData.experience = Number(formData.experience);
       formattedData.rates = { hourlyRate: Number(formData.hourlyRate) };
       formattedData.requestRole = "tutor";
@@ -121,33 +122,33 @@ const ProfileDetails = () => {
           <label className="text-gray-700 dark:text-white">Profile Image</label>
           <Input type="file" accept="image/*" {...register("image")} />
 
-          {/* Apply for Tutor Role */}
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={applyForTutor}
-              onChange={() => setApplyForTutor(!applyForTutor)}
-            />
-            <label className="text-gray-700 dark:text-white">
-              Apply for Tutor Role
-            </label>
-          </div>
+          {/* Bio - visible for both roles */}
+          <label className="text-gray-700 dark:text-white">Bio</label>
+          <Textarea placeholder="Write something about yourself" {...register("bio")} />
 
-          {/* Additional Fields for Tutor Role */}
-          {applyForTutor && (
+          {/* Student Only: Apply for Tutor */}
+          {user?.role === "student" && (
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={applyForTutor}
+                onChange={() => setApplyForTutor(!applyForTutor)}
+              />
+              <label className="text-gray-700 dark:text-white">
+                Apply for Tutor Role
+              </label>
+            </div>
+          )}
+
+          {/* Tutor or Applying Student: Show extra fields */}
+          {(user?.role === "tutor" || applyForTutor) && (
             <>
               {/* Subjects */}
-              <label className="text-gray-700 dark:text-white">
-                Your Subjects
-              </label>
+              <label className="text-gray-700 dark:text-white">Subjects</label>
               <Textarea
                 placeholder="Subjects (comma-separated)"
                 {...register("subjects")}
               />
-
-              {/* Bio */}
-              <label className="text-gray-700 dark:text-white">Details</label>
-              <Textarea placeholder="Bio" {...register("bio")} />
 
               {/* Experience */}
               <label className="text-gray-700 dark:text-white">
@@ -156,24 +157,24 @@ const ProfileDetails = () => {
               <Input
                 type="number"
                 min="0"
-                placeholder="Experience (in years)"
+                placeholder="Experience in years"
                 {...register("experience")}
               />
 
               {/* Hourly Rate */}
               <label className="text-gray-700 dark:text-white">
-                Hourly Payment ($)
+                Hourly Rate ($)
               </label>
               <Input
                 type="number"
                 min="0"
-                placeholder="Hourly Rate ($)"
+                placeholder="Hourly rate"
                 {...register("hourlyRate")}
               />
             </>
           )}
 
-          {/* Update Button */}
+          {/* Submit */}
           <Button type="submit" className="w-full bg-blue-600 text-white">
             Update Profile
           </Button>

@@ -1,13 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
   School,
-  Send,
   Shield,
   ShieldUser,
   SquareTerminal,
@@ -24,22 +20,24 @@ import {
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
-import Link from "next/link";
 import Logo from "@/components/shared/Logo";
+import { useUser } from "@/context/UserContext";
 
-const data = {
-  navMain: [
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useUser();
+
+  // Define full menu
+  const navMain = [
     {
       title: "Dashboard",
       url: "/dashboard",
       icon: SquareTerminal,
-      isActive: true,
     },
-
     {
       title: "student section",
       url: "",
       icon: ShieldUser,
+      role: "student",
       items: [
         {
           title: "book sessions",
@@ -51,15 +49,12 @@ const data = {
       title: "Admin section",
       url: "",
       icon: Shield,
+      role: "admin",
       items: [
         {
           title: "Manage student and tutor",
           url: "/dashboard/admin/studentlist",
         },
-        // {
-        //   title: "Manage Tutor",
-        //   url: "/dashboard/admin/tutorlist",
-        // },
         {
           title: "Manage Category",
           url: "/dashboard/admin/managecategory",
@@ -74,6 +69,7 @@ const data = {
       title: "Tutor section",
       url: "",
       icon: School,
+      role: "tutor",
       items: [
         {
           title: "Manage Booking",
@@ -93,39 +89,14 @@ const data = {
         },
       ],
     },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
+  ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const filteredNavMain = navMain.filter(
+    (item) =>
+      !item.role || 
+      item.role === user?.role
+  );
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -141,9 +112,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={filteredNavMain} />
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser />
       </SidebarFooter>

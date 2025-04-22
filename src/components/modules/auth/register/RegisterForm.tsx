@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -15,13 +16,19 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
+  const [selectedRole, setSelectedRole] = useState<"student" | "tutor">("student");
   const { setIsLoading } = useUser();
   const router = useRouter();
 
+  const handleRoleSelect = (role: "student" | "tutor") => {
+    setSelectedRole(role);
+    setValue("role", role); // update form field
+  };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await registerUser(data);
+      const res = await registerUser({ ...data, role: selectedRole });
       setIsLoading(true);
       if (res?.success) {
         toast.success(res?.message);
@@ -43,11 +50,33 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
           <form className="p-6 md:p-8" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
+                <h1 className="text-2xl font-bold">Welcome</h1>
                 <p className="text-balance text-muted-foreground">
-                  Please Crate a Account
+                  Please create an account
                 </p>
               </div>
+
+              {/* Role Selection */}
+              <div className="grid gap-2">
+                <Label>Select Role</Label>
+                <div className="flex gap-4">
+                  <Button
+                    type="button"
+                    variant={selectedRole === "student" ? "default" : "outline"}
+                    onClick={() => handleRoleSelect("student")}
+                  >
+                    Student
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={selectedRole === "tutor" ? "default" : "outline"}
+                    onClick={() => handleRoleSelect("tutor")}
+                  >
+                    Tutor
+                  </Button>
+                </div>
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -78,19 +107,20 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                   {...register("password")}
                 />
               </div>
+
               <Button type="submit" className="w-full">
                 Signup
               </Button>
-              
-              
+
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Already have an account?{" "}
                 <Link href="/login" className="underline underline-offset-4">
                   Sign in
                 </Link>
               </div>
             </div>
           </form>
+
           <div className="relative hidden bg-muted md:block">
             <Image
               src={registerImage || "/placeholder-image.png"}
@@ -102,9 +132,10 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
           </div>
         </CardContent>
       </Card>
+
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{" "}
+        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
       </div>
     </div>
   );
