@@ -1,12 +1,12 @@
+
 import { getProfileInfo } from "@/services/Profile";
 import { formatDate } from "@/types/formatDate";
 import { TReviews } from "@/types/reviews";
 import React from "react";
 
-
 const Feedback = async () => {
   const result = await getProfileInfo();
-  const reviews = result?.data?.reviews;
+  const reviews = result?.data?.reviews || [];
 
   return (
     <div className="max-w-2xl mx-auto mt-8 px-4">
@@ -20,24 +20,24 @@ const Feedback = async () => {
         </div>
       ) : (
         <div className="space-y-6">
-          {reviews.map((review: TReviews) => (
+          {reviews?.map((review: TReviews) => (
             <div
-              key={review._id}
+              key={review?._id}
               className="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
-                  {review.studentId.name.charAt(0).toUpperCase()}
+                  {review?.studentId?.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
                   <p className="font-medium">{review.studentId.name}</p>
-                <p className="text-sm">{review.studentId.email}</p>
+                  <p className="text-sm">{review.studentId.email}</p>
                   <p className="text-sm text-gray-500">
-                    {formatDate(review.createdAt)}
+                    {formatDate(review?.createdAt)}
                   </p>
                 </div>
               </div>
-              <p className="text-gray-700">{review.comment}</p>
+              <p className="text-gray-700">{review?.comment}</p>
             </div>
           ))}
         </div>
