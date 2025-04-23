@@ -24,8 +24,8 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const reviews = tutor?.reviews;
-  const displayedReviews =
-    reviews?.length > 1 ? [reviews[reviews.length - 1]] : null;
+  // const displayedReviews =
+  //   reviews?.length > 1 ? [reviews[reviews.length - 1]] : null;
 
   useEffect(() => {
     const fetchTutor = async () => {
@@ -178,7 +178,7 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
       {/* review section */}
 
       <div className="max-w-2xl mx-auto mt-8 px-4">
-        {!displayedReviews ? (
+        {!reviews ? (
           <div className="text-center p-8 bg-gray-50 rounded-lg">
             <p className="text-gray-500">
               No reviews available for this subject yet.
@@ -187,26 +187,33 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
         ) : (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold mb-6">Student Reviews</h2>
-            {displayedReviews.map((review: TReviews) => (
-              <div
-                key={review._id}
-                className="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
-                    {review.studentId.name.charAt(0).toUpperCase()}
+            {reviews
+              .sort(
+                (a: TReviews, b: TReviews) =>
+                  new Date(b.createdAt).getTime() -
+                  new Date(a.createdAt).getTime()
+              )
+              .slice(0, 1)
+              .map((review: TReviews) => (
+                <div
+                  key={review._id}
+                  className="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
+                      {review.studentId.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="font-medium">{review.studentId.name}</p>
+                      <p className="text-sm">{review.studentId.email}</p>
+                      <p className="text-sm text-gray-500">
+                        {formatDate(review.createdAt)}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium">{review.studentId.name}</p>
-                    <p className="text-sm">{review.studentId.email}</p>
-                    <p className="text-sm text-gray-500">
-                      {formatDate(review.createdAt)}
-                    </p>
-                  </div>
+                  <p className="text-gray-700">{review.comment}</p>
                 </div>
-                <p className="text-gray-700">{review.comment}</p>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>

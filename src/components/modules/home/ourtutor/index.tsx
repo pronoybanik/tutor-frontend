@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/shared/PrimaryButton";
 import { IProfile } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +22,7 @@ const TutorSection = ({ data }: { data: IProfile[] }) => {
 
       {/* Tutors Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto max-w-7xl">
-        {data?.map((tutor: IProfile) => (
+        {data?.slice(0, 3).map((tutor: IProfile) => (
           <Link
             href={`/tutor/${tutor._id}`}
             key={tutor._id}
@@ -57,6 +58,10 @@ const TutorSection = ({ data }: { data: IProfile[] }) => {
           </Link>
         ))}
       </div>
+
+      <Link className="flex items-center justify-center mt-4" href="/tutor">
+        <PrimaryButton>View all tutor</PrimaryButton>
+      </Link>
     </div>
   );
 };
