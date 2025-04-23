@@ -2,10 +2,13 @@
 "use client";
 
 import PrimaryButton from "@/components/shared/PrimaryButton";
+import { useUser } from "@/context/UserContext";
 import {
   getProfileInfoById,
   updateProfileByFeedBack,
 } from "@/services/Profile";
+import { formatDate } from "@/types/formatDate";
+import { TReviews } from "@/types/reviews";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -14,13 +17,15 @@ interface TutorDetailsProps {
 }
 
 const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
-  
+  const { user } = useUser();
   const [tutor, setTutor] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  
+  const reviews = tutor?.reviews;
+  const displayedReviews =
+    reviews?.length > 1 ? [reviews[reviews.length - 1]] : null;
 
   useEffect(() => {
     const fetchTutor = async () => {
@@ -75,13 +80,13 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
     tutor;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-4xl mx-auto p-6 my-4 bg-white shadow-lg rounded-lg">
       {/* Tutor Image & Info */}
       <div className="flex flex-col md:flex-row items-center gap-6">
         <Image
           width={100}
           height={100}
-          src={image}
+          src={image || "/placeholder.jpg"}
           alt="Tutor"
           className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-gray-300"
         />
@@ -92,7 +97,7 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
               ✔ Verified Tutor
             </span>
           )}
-          <p className="font-semibold">Email:- {tutor?.userId?.email}  </p>
+          <p className="font-semibold">Email:- {tutor?.userId?.email} </p>
         </div>
       </div>
 
@@ -119,11 +124,13 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
       </div>
 
       {/* Feedback Button */}
-      <div className="mt-6 text-center">
-        <button onClick={() => setIsModalOpen(true)}>
-          <PrimaryButton>Give Feedback</PrimaryButton>
-        </button>
-      </div>
+      {user?.role === "student" ? (
+        <div className="mt-6 text-center">
+          <button onClick={() => setIsModalOpen(true)}>
+            <PrimaryButton>Give Feedback</PrimaryButton>
+          </button>
+        </div>
+      ) : null}
 
       {/* Feedback Modal */}
       {isModalOpen && (
@@ -167,6 +174,42 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
           </div>
         </div>
       )}
+
+      {/* review section */}
+
+      <div className="max-w-2xl mx-auto mt-8 px-4">
+        {!displayedReviews ? (
+          <div className="text-center p-8 bg-gray-50 rounded-lg">
+            <p className="text-gray-500">
+              No reviews available for this subject yet.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold mb-6">Student Reviews</h2>
+            {displayedReviews.map((review: TReviews) => (
+              <div
+                key={review._id}
+                className="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
+                    {review.studentId.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="font-medium">{review.studentId.name}</p>
+                    <p className="text-sm">{review.studentId.email}</p>
+                    <p className="text-sm text-gray-500">
+                      {formatDate(review.createdAt)}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-gray-700">{review.comment}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

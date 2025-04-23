@@ -27,20 +27,20 @@ export const createBooking = async (data: FieldValues) => {
 
 export const createOrder = async (order: any) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/order`, {
-        method: "POST",
-        headers: {
-          Authorization: (await cookies()).get("accessToken")!.value,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(order),
-      });
-  
-      return await res.json();
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/order`, {
+            method: "POST",
+            headers: {
+                Authorization: (await cookies()).get("accessToken")!.value,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(order),
+        });
+
+        return await res.json();
     } catch (error: any) {
-      return Error(error);
+        return Error(error);
     }
-  };
+};
 
 export const getTutorBooking = async () => {
     try {
@@ -99,9 +99,26 @@ export const updateBooking = async (id: string, data: any) => {
 };
 
 
+// export const deleteBooking = async (id: string) => {
+//     try {
+//         // Call your API delete function here
+//         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/booking/${id}`, {
+//             method: "DELETE",
+//             headers: {
+//                 Authorization: (await cookies()).get("accessToken")?.value || "",
+//             },
+//         });
+
+//         const data = await res.json();
+//         revalidateTag("Booking");
+//         return data;
+//     } catch (error: any) {
+//         return Error(error.message);
+//     }
+// }
+
 export const deleteBooking = async (id: string) => {
     try {
-        // Call your API delete function here
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/booking/${id}`, {
             method: "DELETE",
             headers: {
@@ -109,10 +126,14 @@ export const deleteBooking = async (id: string) => {
             },
         });
 
+        const result = await res.json();
+
+        // Revalidate tag to refresh cache on the server side
         revalidateTag("Booking");
-        const data = await res.json();
-        return data;
+
+        return result;
     } catch (error: any) {
-        return Error(error.message);
+        console.error("Error deleting booking:", error);
+        throw new Error(error.message);
     }
-}
+};

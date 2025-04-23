@@ -7,10 +7,19 @@ import Image from "next/image";
 import PaymentDetails from "./payment";
 import { deleteBooking } from "@/services/Booking";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const BookingCard = ({ booking }: { booking: IBooking }) => {
+
+  const [loading, setLoading] = useState(false);
+
+
+
+
   const handleDelete = async () => {
+    setLoading(true);
     const result = await deleteBooking(booking._id);
+    setLoading(false);
     if (result?.success) {
       toast.success("Booking deleted successfully!");
     } else {
@@ -69,6 +78,7 @@ const BookingCard = ({ booking }: { booking: IBooking }) => {
         <Button
           className="bg-red-600 text-white px-4 py-2 rounded-md flex items-center gap-2 justify-center"
           onClick={handleDelete}
+          disabled= {loading}
         >
           <Trash size={16} />
           {/* {loading ? "Deleting..." : "Delete"} */}
