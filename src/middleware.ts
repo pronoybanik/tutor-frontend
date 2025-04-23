@@ -75,6 +75,7 @@ const roleBasedPrivateRoutes = {
     /^\/dashboard\/tutor\/createsubject$/,
     /^\/dashboard\/tutor\/subjectList$/,
     /^\/dashboard\/tutor\/createBlog$/,
+    /^\/dashboard\/tutor\/FeedBack$/,
   ],
   admin: [
     /^\/dashboard$/,

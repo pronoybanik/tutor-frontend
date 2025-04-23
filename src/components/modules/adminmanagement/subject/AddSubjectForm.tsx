@@ -26,7 +26,7 @@ import { getAllCategory } from "@/services/Category";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { createSubject } from "@/services/Subject";
-// import { DateTimePicker } from "./DateAndTime";
+import { DateTimePicker } from "./DateAndTime";
 
 const AddSubjectForm = () => {
   const form = useForm({
@@ -71,13 +71,13 @@ const AddSubjectForm = () => {
     ]);
   };
 
-  // const removeDateTimeField = (id: number) => {
-  //   setDateTimes(dateTimes.filter((dt) => dt.id !== id));
-  // };
+  const removeDateTimeField = (id: number) => {
+    setDateTimes(dateTimes.filter((dt) => dt.id !== id));
+  };
 
-  // const updateDateTime = (id: number, value: string) => {
-  //   setDateTimes(dateTimes.map((dt) => (dt.id === id ? { ...dt, value } : dt)));
-  // };
+  const updateDateTime = (id: number, value: string) => {
+    setDateTimes(dateTimes.map((dt) => (dt.id === id ? { ...dt, value } : dt)));
+  };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const modifiedData = {
@@ -89,7 +89,6 @@ const AddSubjectForm = () => {
         .filter((value) => value && value.trim() !== ""),
     };
 
-    console.log("Final Form Data before submitting:", modifiedData);
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(modifiedData));
@@ -202,7 +201,7 @@ const AddSubjectForm = () => {
           {/* Dynamic Date & Time Fields */}
           <div className="mt-6">
             <p className="text-lg font-semibold">Date & Time Slots</p>
-            {/* {dateTimes.map((dt, index) => (
+            {dateTimes.map((dt, index) => (
               <div key={dt.id} className=" gap-4 mt-2 items-center">
                 <DateTimePicker
                   value={dt.value }
@@ -218,7 +217,7 @@ const AddSubjectForm = () => {
                   </Button>
                 )}
               </div>
-            ))} */}
+            ))}
             <Button type="button" className="mt-4" onClick={addDateTimeField}>
               + Add Another Slot
             </Button>

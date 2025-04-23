@@ -87,6 +87,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           title: "create blog",
           url: "/dashboard/tutor/createBlog",
         },
+        {
+          title: "FeedBack",
+          url: "/dashboard/tutor/FeedBack",
+        },
       ],
     },
   ];

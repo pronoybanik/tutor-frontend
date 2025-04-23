@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import PrimaryButton from "@/components/shared/PrimaryButton";
-import { useUser } from "@/context/UserContext";
 import {
   getProfileInfoById,
   updateProfileByFeedBack,
@@ -14,14 +14,13 @@ interface TutorDetailsProps {
 }
 
 const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
-  const { user } = useUser();
+  
   const [tutor, setTutor] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-
-  console.log(user);
+  
 
   useEffect(() => {
     const fetchTutor = async () => {
@@ -93,7 +92,7 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
               ✔ Verified Tutor
             </span>
           )}
-          <p>Email:- {user?.email}</p>
+          <p className="font-semibold">Email:- {tutor?.userId?.email}  </p>
         </div>
       </div>
 
@@ -121,9 +120,7 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
 
       {/* Feedback Button */}
       <div className="mt-6 text-center">
-        <button
-          onClick={() => setIsModalOpen(true)}
-        >
+        <button onClick={() => setIsModalOpen(true)}>
           <PrimaryButton>Give Feedback</PrimaryButton>
         </button>
       </div>
