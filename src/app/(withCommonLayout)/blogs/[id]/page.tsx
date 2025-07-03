@@ -1,8 +1,8 @@
-
-"use client"
+"use client";
 
 import BlogDetailsItem from "@/components/modules/blog/BlogDetails.tsx/BlogDetails";
 import Banner from "@/components/shared/banner";
+import NMContainer from "@/components/ui/core/NMContainer";
 import { useParams } from "next/navigation";
 import React from "react";
 
@@ -16,7 +16,9 @@ const BlogsDetailsPage = () => {
 
   return (
     <div>
-      <Banner title="Blogs" path="Home - Blogs" />
+      <NMContainer>
+        <Banner title="Blogs" path="Home - Blogs" />
+      </NMContainer>
       <BlogDetailsItem id={id} />
     </div>
   );
