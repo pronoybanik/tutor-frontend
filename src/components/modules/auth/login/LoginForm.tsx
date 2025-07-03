@@ -28,13 +28,32 @@ const LoginForm = ({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = useForm();
+
   const { setIsLoading } = useUser();
   const router = useRouter();
 
-  // Fix: Use useState and useEffect instead of useSearchParams()
   const [redirectPath, setRedirectPath] = useState<string | null>(null);
+  const [selectedRole, setSelectedRole] = useState<
+    "admin" | "tutor" | "user" | ""
+  >("");
+
+  const credentialsMap = {
+    admin: {
+      email: "admin1@gmail.com",
+      password: "112233",
+    },
+    tutor: {
+      email: "tutor1@gmail.com",
+      password: "112233",
+    },
+    user: {
+      email: "student1@gmail.com",
+      password: "112233",
+    },
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -42,6 +61,13 @@ const LoginForm = ({
       setRedirectPath(searchParams.get("redirectPath"));
     }
   }, []);
+
+  const handleRoleSelect = (role: "admin" | "tutor" | "user") => {
+    setSelectedRole(role);
+    const creds = credentialsMap[role];
+    setValue("email", creds.email);
+    setValue("password", creds.password);
+  };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -97,14 +123,29 @@ const LoginForm = ({
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
-              {/* Divider */}
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
                   Or continue with
                 </span>
               </div>
 
-              {/* Email Input */}
+              {/* Section Selector */}
+              <p className="text-center text-sm font-semibold">Login Credential</p>
+              <div className="flex justify-center gap-4 px-6 pb-2">
+                {(["admin", "tutor", "user"] as const).map((role) => (
+                  <Button
+                    key={role}
+                    type="button"
+                    variant={selectedRole === role ? "default" : "outline"}
+                    onClick={() => handleRoleSelect(role)}
+                    className="capitalize"
+                  >
+                    {role}
+                  </Button>
+                ))}
+              </div>
+
+              {/* Email */}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -115,7 +156,7 @@ const LoginForm = ({
                 />
               </div>
 
-              {/* Password Input */}
+              {/* Password */}
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
@@ -133,12 +174,11 @@ const LoginForm = ({
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <PrimaryButton type="submit" className="w-full">
-                {isSubmitting ? "Logging...." : "Login"}
+                {isSubmitting ? "Logging in..." : "Login"}
               </PrimaryButton>
 
-              {/* Sign Up Link */}
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
                 <Link href="/register" className="underline underline-offset-4">
@@ -150,7 +190,6 @@ const LoginForm = ({
         </CardContent>
       </Card>
 
-      {/* Terms and Privacy */}
       <div className="text-center text-xs text-muted-foreground">
         By clicking continue, you agree to our{" "}
         <a href="#" className="underline hover:text-primary">
