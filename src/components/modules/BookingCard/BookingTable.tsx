@@ -49,8 +49,6 @@ const BookingTable = ({ bookingData }: { bookingData: IBooking[] }) => {
       accessorKey: "subjectId.image",
       header: "Image",
       cell: ({ row }) => {
-        console.log("row.original", row.original);
-        
         return (
           <Image
             src={row.original.subjectId.image || "/placeholder.jpg"} // Provide a fallback image

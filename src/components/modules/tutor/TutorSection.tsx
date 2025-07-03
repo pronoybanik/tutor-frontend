@@ -24,8 +24,10 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const reviews = tutor?.reviews;
-  // const displayedReviews =
-  //   reviews?.length > 1 ? [reviews[reviews.length - 1]] : null;
+
+
+ 
+  
 
   useEffect(() => {
     const fetchTutor = async () => {
@@ -76,7 +78,7 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
     );
   }
 
-  const { image, bio, experience, isVerified, rates, ratings, subjects } =
+  const { image, experience, isVerified, rates, ratings, subjects } =
     tutor;
 
   return (
@@ -91,7 +93,7 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
           className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-gray-300"
         />
         <div>
-          <p className="text-gray-600 ">{bio || "No bio available."}</p>
+          <p className="text-gray-600 ">Name:- {tutor?.userId?.name || "N/A"}</p>
           {isVerified && (
             <span className="text-green-600 font-semibold mt-4">
               ✔ Verified Tutor
