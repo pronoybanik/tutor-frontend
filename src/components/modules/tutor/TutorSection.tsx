@@ -201,11 +201,11 @@ const TutorSectionDetails = ({ id }: TutorDetailsProps) => {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
-                      {review.studentId.name.charAt(0).toUpperCase()}
+                      {review?.studentId?.name?.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p className="font-medium">{review.studentId.name}</p>
-                      <p className="text-sm">{review.studentId.email}</p>
+                      <p className="font-medium">{review?.studentId.name}</p>
+                      <p className="text-sm">{review?.studentId.email}</p>
                       <p className="text-sm text-gray-500">
                         {formatDate(review.createdAt)}
                       </p>
