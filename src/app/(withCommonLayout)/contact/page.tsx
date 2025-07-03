@@ -1,12 +1,15 @@
 import Banner from "@/components/shared/banner";
 import PrimaryButton from "@/components/shared/PrimaryButton";
 import Image from "next/image";
-import image from "../../../assets/sitelogo/Screenshot_2025-03-01_232319-removebg-preview.png"
+import image from "../../../assets/sitelogo/Screenshot_2025-03-01_232319-removebg-preview.png";
+import NMContainer from "@/components/ui/core/NMContainer";
 
 export default function ContactPage() {
   return (
     <div className="bg-gray-50">
-      <Banner title="contact" path="Home - Contact" />
+      <NMContainer>
+        <Banner title="contact" path="Home - Contact" />
+      </NMContainer>
 
       <main className="container mx-auto px-4 py-10">
         {/* Contact Info Section */}
