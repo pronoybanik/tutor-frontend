@@ -20,7 +20,7 @@ const HeroSection = () => {
 
         {/* Content */}
         <div className="text-center px-6 md:px-8 lg:px-12">
-          <div className="p-6 rounded-lg lg:w-6xl">
+          <div className="p-6 rounded-lg lg:w-5xl">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold">
               Learn English Online with Professional Instructors
             </h1>
