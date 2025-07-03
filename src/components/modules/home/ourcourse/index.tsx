@@ -21,7 +21,7 @@ const CoursesSection = ({ data }: { data: ISubject[] }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto  max-w-7xl">
-        {data?.slice(0, 6).map((course) => (
+        {data?.slice(0, 3).map((course) => (
           <CourseItem key={course._id} data={course} />
         ))}
       </div>

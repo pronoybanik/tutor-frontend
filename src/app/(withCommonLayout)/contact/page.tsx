@@ -1,6 +1,7 @@
 import Banner from "@/components/shared/banner";
 import PrimaryButton from "@/components/shared/PrimaryButton";
 import Image from "next/image";
+import image from "../../../assets/sitelogo/Screenshot_2025-03-01_232319-removebg-preview.png"
 
 export default function ContactPage() {
   return (
@@ -24,11 +25,11 @@ export default function ContactPage() {
             </p>
             <div className="flex items-center gap-4 mb-4">
               <Image
-                src="/images/logo.png"
+                src={image}
                 alt="Company Logo"
-                width={50}
-                height={50}
-                className="rounded-full"
+                width={100}
+                height={100}
+                className="rounded-full bg-black"
               />
               <div>
                 <p className="text-gray-800 font-bold">Skooli</p>

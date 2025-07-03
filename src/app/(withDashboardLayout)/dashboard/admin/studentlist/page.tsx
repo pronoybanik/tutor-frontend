@@ -7,7 +7,6 @@ import React from "react";
 const StudentListPage = async () => {
   const data = await getAllUserProfileInfo();
 
-
   return (
     <div>
       <StudentManage ProfileData={data?.data}  />

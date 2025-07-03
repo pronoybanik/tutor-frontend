@@ -20,7 +20,6 @@ interface StudentManageProps {
 }
 
 const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
-  
   const handleRoleChange = async (id: string, role: string) => {
     try {
       const res = await updateProfileByRole(id, role);
@@ -48,7 +47,11 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
     {
       accessorKey: "User Role",
       header: "User Role",
-      cell: ({ row }) => <span className="bg-sky-500 flex justify-center text-xs text-white font-semibold p-2 rounded-xl">{row.original?.userId?.role || "N/A"}</span>,
+      cell: ({ row }) => (
+        <span className="bg-sky-500 flex justify-center text-xs text-white font-semibold p-2 rounded-xl">
+          {row.original?.userId?.role || "N/A"}
+        </span>
+      ),
     },
     {
       accessorKey: "role",
@@ -84,7 +87,7 @@ const StudentManage: React.FC<StudentManageProps> = ({ ProfileData }) => {
     {
       accessorKey: "ratings",
       header: "Ratings",
-      cell: ({ row }) => <span>{row.original.ratings }</span>,
+      cell: ({ row }) => <span>{row.original.ratings}</span>,
     },
     {
       accessorKey: "isVerified",
