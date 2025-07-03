@@ -14,8 +14,8 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { CalendarIcon } from "lucide-react";
 
 interface DateTimePickerProps {
-  value: string; // Accepts a string (ISO date format)
-  onChange: (value: string) => void; // Callback function for updating date
+  value: string; 
+  onChange: (value: string) => void; 
 }
 
 export function DateTimePicker({ value, onChange }: DateTimePickerProps) {

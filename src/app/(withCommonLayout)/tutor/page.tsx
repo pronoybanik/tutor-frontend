@@ -9,7 +9,7 @@ import Link from "next/link";
 import NMContainer from "@/components/ui/core/NMContainer";
 import Banner from "@/components/shared/banner";
 
-// Define the types based on the data structure
+
 interface User {
   _id: string;
   name: string;
@@ -62,38 +62,33 @@ const TutorPage = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filter states
   const [subjectFilter, setSubjectFilter] = useState("");
   const [ratingFilter, setRatingFilter] = useState("");
   const [rateFilter, setRateFilter] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
 
-  // Sort state
   const [sortOption, setSortOption] = useState("relevance");
 
-  // Get unique subjects from tutors
   const uniqueSubjects = Array.from(
     new Set(
       tutors.flatMap((tutor) => tutor.subjects).filter((subject) => subject)
     )
   );
 
-  // Get unique availability options
+
   const uniqueAvailability = Array.from(
     new Set(
       tutors.flatMap((tutor) => tutor.availability).filter((avail) => avail)
     )
   );
 
-  // Get unique locations
   const uniqueLocations = Array.from(
     new Set(
       tutors.map((tutor) => tutor.location).filter((location) => location)
     )
   );
 
-  // Fetch tutors data
   useEffect(() => {
     const fetchTutors = async () => {
       try {
@@ -115,11 +110,10 @@ const TutorPage = () => {
     fetchTutors();
   }, []);
 
-  // Apply filters and sorting
   useEffect(() => {
     let results = [...tutors];
 
-    // Apply search filter
+
     if (searchTerm) {
       results = results.filter((tutor) =>
         tutor.userId.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -129,7 +123,7 @@ const TutorPage = () => {
       );
     }
 
-    // Apply subject filter
+
     if (subjectFilter) {
       results = results.filter((tutor) =>
         tutor.subjects.some((subject) =>
@@ -138,13 +132,13 @@ const TutorPage = () => {
       );
     }
 
-    // Apply rating filter
+
     if (ratingFilter) {
       const minRating = parseFloat(ratingFilter);
       results = results.filter((tutor) => tutor.ratings >= minRating);
     }
 
-    // Apply rate filter
+
     if (rateFilter) {
       const [min, max] = rateFilter.split("-").map(Number);
       results = results.filter((tutor) => {
@@ -153,21 +147,21 @@ const TutorPage = () => {
       });
     }
 
-    // Apply availability filter
+
     if (availabilityFilter) {
       results = results.filter((tutor) =>
         tutor.availability.includes(availabilityFilter)
       );
     }
 
-    // Apply location filter
+
     if (locationFilter) {
       results = results.filter((tutor) =>
         tutor.location?.toLowerCase().includes(locationFilter.toLowerCase())
       );
     }
 
-    // Apply sorting
+
     switch (sortOption) {
       case "rating":
         results.sort((a, b) => b.ratings - a.ratings);

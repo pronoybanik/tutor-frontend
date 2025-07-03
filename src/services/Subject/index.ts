@@ -62,7 +62,6 @@ export const getTutorCreatedSubject = async () => {
 
 export const deleteSubject = async (id: string) => {
     try {
-        // Call your API delete function here
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/subject/${id}`, {
             method: "DELETE",
             headers: {

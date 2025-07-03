@@ -23,7 +23,7 @@ const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
 
   const handleRoleSelect = (role: "student" | "tutor") => {
     setSelectedRole(role);
-    setValue("role", role); // update form field
+    setValue("role", role); 
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {

@@ -7,7 +7,7 @@ const SubjectListPage = async () => {
   const data = response?.data;
 
   if (!data || !Array.isArray(data) || data.length === 0) {
-    return <div>No Subject available.</div>; // Fallback UI
+    return <div>No Subject available.</div>;
   }
 
   return (

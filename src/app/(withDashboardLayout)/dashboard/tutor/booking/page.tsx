@@ -8,7 +8,7 @@ const BookingPage = async () => {
 
     
     if (!data || !Array.isArray(data) || data.length === 0) {
-      return <div>No bookings available.</div>; // Fallback UI
+      return <div>No bookings available.</div>;
     }
 
     return (

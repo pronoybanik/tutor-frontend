@@ -8,7 +8,7 @@ import React from "react";
 
 const BlogsDetailsPage = () => {
   const params = useParams();
-  const id = params?.id as string; // Ensure id is a string
+  const id = params?.id as string; 
 
   if (!id) {
     return <p className="text-center text-red-500">Invalid Blog ID</p>;

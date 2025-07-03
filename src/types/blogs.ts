@@ -17,5 +17,5 @@ export interface IBlog {
 }
 
 export interface IBlogResponse {
-    data: IBlog[]; // Array of blogs
+    data: IBlog[]; 
 }
